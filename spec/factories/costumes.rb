@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :costume do
-    character_name "MyString"
-    property "MyString"
-    contestant nil
+    character_name 'Tyrol Ericson'
+    property 'I made it up'
+    owner FactoryGirl.create :contestant
   end
 end

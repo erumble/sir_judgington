@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :contestant do
-    first_name "MyString"
-    last_name "MyString"
-    email "MyString"
+    first_name 'John'
+    last_name 'Smith'
+    email 'john.smith@example.com'
   end
 end
