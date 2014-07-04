@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140704012144) do
+ActiveRecord::Schema.define(version: 20140704033347) do
 
   create_table "contestants", force: true do |t|
     t.string   "first_name"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20140704012144) do
   end
 
   add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
+
+  create_table "entries", force: true do |t|
+    t.date     "contest_date"
+    t.integer  "skill_level",  default: 0
+    t.boolean  "hot_or_bulky"
+    t.string   "group_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

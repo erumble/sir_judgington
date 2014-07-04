@@ -4,6 +4,6 @@ FactoryGirl.define do
   factory :costume do
     character_name 'Tyrol Ericson'
     property 'I made it up'
-    owner FactoryGirl.create :contestant
+    owner
   end
 end
