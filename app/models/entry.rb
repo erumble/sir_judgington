@@ -6,4 +6,5 @@ class Entry < ActiveRecord::Base
                       master:     4 }
 
   has_and_belongs_to_many :categories, -> { readonly }
+  has_and_belongs_to_many :contestants
 end
