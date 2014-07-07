@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707221038) do
+ActiveRecord::Schema.define(version: 20140707221938) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -34,6 +34,13 @@ ActiveRecord::Schema.define(version: 20140707221038) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "contestants_costumes", id: false, force: true do |t|
+    t.integer "contestant_id", null: false
+    t.integer "costume_id",    null: false
+  end
+
+  add_index "contestants_costumes", ["costume_id", "contestant_id"], name: "index_contestants_costumes_on_costume_id_and_contestant_id", unique: true, using: :btree
 
   create_table "contestants_entries", id: false, force: true do |t|
     t.integer "contestant_id", null: false
