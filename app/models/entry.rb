@@ -4,4 +4,6 @@ class Entry < ActiveRecord::Base
                       novice:     2,
                       journeyman: 3,
                       master:     4 }
+
+  has_and_belongs_to_many :categories, -> { readonly }
 end
