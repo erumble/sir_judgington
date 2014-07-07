@@ -24,4 +24,14 @@ RSpec.describe Entry, type: :model do
   it '#group_name should be a string' do
     expect(@entry.group_name).to eql 'Trouble Makers'
   end
+
+  it { should respond_to :categories}
+  it '#creators should return a CollectionProxy' do
+    expect(@entry.categories).to be_a ActiveRecord::Associations::CollectionProxy
+  end
+
+  it { should respond_to :contestants}
+  it '#creators should return a CollectionProxy' do
+    expect(@entry.contestants).to be_a ActiveRecord::Associations::CollectionProxy
+  end
 end

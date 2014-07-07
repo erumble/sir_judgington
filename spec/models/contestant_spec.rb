@@ -20,8 +20,18 @@ RSpec.describe Contestant, type: :model do
     expect(@contestant.email).to eql 'john.smith@example.com'
   end
 
-  it { should respond_to :costumes }
-  it '#costumes should return a CollectionProxy' do
-    expect(@contestant.costumes).to be_a ActiveRecord::Associations::CollectionProxy
+  it { should respond_to :owned_costumes }
+  it '#owned_costumes should return a CollectionProxy' do
+    expect(@contestant.owned_costumes).to be_a ActiveRecord::Associations::CollectionProxy
+  end
+
+  it { should respond_to :created_costumes }
+  it '#created_costumes should return a CollectionProxy' do
+    expect(@contestant.created_costumes).to be_a ActiveRecord::Associations::CollectionProxy
+  end
+
+  it { should respond_to :entries }
+  it '#entries should return a CollectionProxy' do
+    expect(@contestant.entries).to be_a ActiveRecord::Associations::CollectionProxy
   end
 end

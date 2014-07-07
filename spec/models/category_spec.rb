@@ -14,4 +14,9 @@ RSpec.describe Category, type: :model do
   it '#active? should be a boolean' do
     expect(@category.active?).to eql true
   end
+
+  it { should respond_to :entries}
+  it '#creators should return a CollectionProxy' do
+    expect(@category.entries).to be_a ActiveRecord::Associations::CollectionProxy
+  end
 end

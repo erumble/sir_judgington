@@ -19,4 +19,9 @@ RSpec.describe Costume, type: :model do
   it '#owner should return a contestant' do
     expect(@costume.owner).to be_a Contestant
   end
+
+  it { should respond_to :creators}
+  it '#creators should return a CollectionProxy' do
+    expect(@costume.creators).to be_a ActiveRecord::Associations::CollectionProxy
+  end
 end
