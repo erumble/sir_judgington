@@ -44,4 +44,6 @@ group :test do
   gem 'faker'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'simplecov', '~> 0.7.1'
+  gem 'shoulda', '~> 3.5.0'
 end

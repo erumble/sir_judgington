@@ -9,3 +9,10 @@ user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 # Environment variables (ENV['...']) can be set in the file config/application.yml.
 # See http://railsapps.github.io/rails-environment-variables.html
+
+# Set the static categories
+categories = %w(anime manga video_game other_media)
+categories.each do |category|
+  Category.where(name: category).first_or_create
+end
+puts "CREATED CATEGORIES: #{categories.join(', ').humanize.titleize}"

@@ -11,7 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619010042) do
+ActiveRecord::Schema.define(version: 20140707221938) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.boolean  "active",     default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories_entries", id: false, force: true do |t|
+    t.integer "category_id", null: false
+    t.integer "entry_id",    null: false
+  end
+
+  add_index "categories_entries", ["entry_id", "category_id"], name: "index_categories_entries_on_entry_id_and_category_id", unique: true, using: :btree
+
+  create_table "contestants", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contestants_costumes", id: false, force: true do |t|
+    t.integer "contestant_id", null: false
+    t.integer "costume_id",    null: false
+  end
+
+  add_index "contestants_costumes", ["costume_id", "contestant_id"], name: "index_contestants_costumes_on_costume_id_and_contestant_id", unique: true, using: :btree
+
+  create_table "contestants_entries", id: false, force: true do |t|
+    t.integer "contestant_id", null: false
+    t.integer "entry_id",      null: false
+  end
+
+  add_index "contestants_entries", ["entry_id", "contestant_id"], name: "index_contestants_entries_on_entry_id_and_contestant_id", unique: true, using: :btree
+
+  create_table "costumes", force: true do |t|
+    t.string   "character_name"
+    t.string   "property"
+    t.integer  "owner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
+
+  create_table "entries", force: true do |t|
+    t.date     "contest_date"
+    t.integer  "skill_level",  default: 0
+    t.boolean  "hot_or_bulky"
+    t.string   "group_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
