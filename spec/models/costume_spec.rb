@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Costume, type: :model do
-  before(:each) { @costume = FactoryGirl.create :costume }
+  let(:costume) { FactoryGirl.create :costume }
 
-  subject { @costume }
+  subject { costume }
 
   it { should respond_to :character_name }
   it { should respond_to :property }
@@ -11,27 +11,27 @@ RSpec.describe Costume, type: :model do
   it { should respond_to :creators}
 
   describe :character_name do
-    subject { @costume.character_name }
+    subject { costume.character_name }
 
     it { should be_a String }
     it { should eql 'Tyrol Ericson' }
   end
 
   describe :property do
-    subject { @costume.property }
+    subject { costume.property }
 
     it { should be_a String }
     it { should eql 'I made it up' }
   end
 
   describe :owner do
-    subject { @costume.owner }
+    subject { costume.owner }
 
     it { should be_a Contestant }
   end
 
   describe :creators do
-    subject { @costume.creators }
+    subject { costume.creators }
 
     it { should be_a ActiveRecord::Associations::CollectionProxy }
   end
