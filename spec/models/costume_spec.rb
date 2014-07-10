@@ -5,34 +5,34 @@ RSpec.describe Costume, type: :model do
 
   subject { costume }
 
-  it { should respond_to :character_name }
-  it { should respond_to :property }
-  it { should respond_to :owner }
-  it { should respond_to :creators}
+  it { is_expected.to respond_to :character_name }
+  it { is_expected.to respond_to :property }
+  it { is_expected.to respond_to :owner }
+  it { is_expected.to respond_to :creators}
 
   describe :character_name do
     subject { costume.character_name }
 
-    it { should be_a String }
-    it { should eql 'Tyrol Ericson' }
+    it { is_expected.to be_a String }
+    it { is_expected.to eql 'Tyrol Ericson' }
   end
 
   describe :property do
     subject { costume.property }
 
-    it { should be_a String }
-    it { should eql 'I made it up' }
+    it { is_expected.to be_a String }
+    it { is_expected.to eql 'I made it up' }
   end
 
   describe :owner do
     subject { costume.owner }
 
-    it { should be_a Contestant }
+    it { is_expected.to be_a Contestant }
   end
 
   describe :creators do
     subject { costume.creators }
 
-    it { should be_a ActiveRecord::Associations::CollectionProxy }
+    it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 end

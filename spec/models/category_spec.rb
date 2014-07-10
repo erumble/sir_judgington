@@ -5,26 +5,26 @@ RSpec.describe Category, type: :model do
 
   subject { category }
 
-  it { should respond_to :name }
-  it { should respond_to :active? }
-  it { should respond_to :entries}
+  it { is_expected.to respond_to :name }
+  it { is_expected.to respond_to :active? }
+  it { is_expected.to respond_to :entries}
 
   describe :name do
     subject { category.name }
 
-    it { should be_a String }
-    it { should eql 'Anime' }
+    it { is_expected.to be_a String }
+    it { is_expected.to eql 'Anime' }
   end
 
   describe :active? do
     subject { category.active? }
 
-    it { should eql true }
+    it { is_expected.to eql true }
   end
 
   describe :entries do
     subject { category.entries }
 
-    it { should be_a ActiveRecord::Associations::CollectionProxy }
+    it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 end
