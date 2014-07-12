@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
 
-
   resources :entries
 
   unless Rails.application.config.consider_all_requests_local
