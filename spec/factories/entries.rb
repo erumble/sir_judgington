@@ -5,6 +5,7 @@ FactoryGirl.define do
     skill_level 4
     hot_or_bulky false
     group_name 'Trouble Makers'
+    handler_count 2
     contest
   end
 end

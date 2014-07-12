@@ -5,6 +5,7 @@ class CreateEntries < ActiveRecord::Migration
       t.boolean :hot_or_bulky, default: false
       t.string :group_name
       t.references :contest, index: true
+      t.integer :handler_count, default: 0
 
       t.timestamps
     end

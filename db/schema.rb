@@ -66,10 +66,11 @@ ActiveRecord::Schema.define(version: 20140712015555) do
   add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
 
   create_table "entries", force: true do |t|
-    t.integer  "skill_level",  default: 0
-    t.boolean  "hot_or_bulky", default: false
+    t.integer  "skill_level",   default: 0
+    t.boolean  "hot_or_bulky",  default: false
     t.string   "group_name"
     t.integer  "contest_id"
+    t.integer  "handler_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
