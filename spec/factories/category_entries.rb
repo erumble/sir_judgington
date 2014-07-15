@@ -1,9 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :category do
-    # name 'Anime'
-    sequence(:name) { |n| "Category_#{n}" }
-    active true
+  factory :category_entry do
+    category nil
+    entry nil
   end
 end

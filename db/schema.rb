@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713230550) do
+ActiveRecord::Schema.define(version: 20140715004606) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -27,12 +27,16 @@ ActiveRecord::Schema.define(version: 20140713230550) do
 
   add_index "categories_contests", ["contest_id", "category_id"], name: "index_categories_contests_on_contest_id_and_category_id", unique: true, using: :btree
 
-  create_table "categories_entries", id: false, force: true do |t|
-    t.integer "category_id", null: false
-    t.integer "entry_id",    null: false
+  create_table "category_entries", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "entry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "categories_entries", ["entry_id", "category_id"], name: "index_categories_entries_on_entry_id_and_category_id", unique: true, using: :btree
+  add_index "category_entries", ["category_id"], name: "index_category_entries_on_category_id", using: :btree
+  add_index "category_entries", ["entry_id", "category_id"], name: "index_category_entries_on_entry_id_and_category_id", unique: true, using: :btree
+  add_index "category_entries", ["entry_id"], name: "index_category_entries_on_entry_id", using: :btree
 
   create_table "contestants", force: true do |t|
     t.string   "first_name"
