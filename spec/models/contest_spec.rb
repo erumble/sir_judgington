@@ -8,7 +8,7 @@ RSpec.describe Contest, :type => :model do
   it { is_expected.to respond_to :date }
   it { is_expected.to respond_to :entries }
   it { is_expected.to respond_to :categories }
-  xit { is_expected.to respond_to :judging_times }
+  # it { is_expected.to respond_to :judging_times }
   it { is_expected.to respond_to :has_category? }
 
   describe :date do
@@ -30,11 +30,11 @@ RSpec.describe Contest, :type => :model do
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 
-  describe :judging_times do
-    subject { contest.judging_times }
-
-    it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
-  end
+  # describe :judging_times do
+  #   subject { contest.judging_times }
+  #
+  #   it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
+  # end
 
   describe :has_category? do
     let(:contest_with_categories) { FactoryGirl.create :contest_with_categories }

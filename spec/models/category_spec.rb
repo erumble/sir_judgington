@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  let(:category) { FactoryGirl.create :category }
+  let(:category) { FactoryGirl.create(:category, name: 'test_category') }
 
   subject { category }
 
@@ -13,7 +13,7 @@ RSpec.describe Category, type: :model do
     subject { category.name }
 
     it { is_expected.to be_a String }
-    it { is_expected.to eql 'Anime' }
+    it { is_expected.to eql 'test_category' }
   end
 
   describe :active? do
