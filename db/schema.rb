@@ -11,21 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707221938) do
+ActiveRecord::Schema.define(version: 20140717035624) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.boolean  "active",     default: true
+    t.boolean  "common",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "categories_entries", id: false, force: true do |t|
+  create_table "categories_contests", id: false, force: true do |t|
     t.integer "category_id", null: false
-    t.integer "entry_id",    null: false
+    t.integer "contest_id",  null: false
   end
 
-  add_index "categories_entries", ["entry_id", "category_id"], name: "index_categories_entries_on_entry_id_and_category_id", unique: true, using: :btree
+  add_index "categories_contests", ["contest_id", "category_id"], name: "index_categories_contests_on_contest_id_and_category_id", unique: true, using: :btree
+
+  create_table "category_entries", force: true do |t|
+    t.integer  "category_id"
+    t.integer  "entry_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "category_entries", ["category_id"], name: "index_category_entries_on_category_id", using: :btree
+  add_index "category_entries", ["entry_id", "category_id"], name: "index_category_entries_on_entry_id_and_category_id", unique: true, using: :btree
+  add_index "category_entries", ["entry_id"], name: "index_category_entries_on_entry_id", using: :btree
 
   create_table "contestants", force: true do |t|
     t.string   "first_name"
@@ -49,6 +60,19 @@ ActiveRecord::Schema.define(version: 20140707221938) do
 
   add_index "contestants_entries", ["entry_id", "contestant_id"], name: "index_contestants_entries_on_entry_id_and_contestant_id", unique: true, using: :btree
 
+  create_table "contests", force: true do |t|
+    t.date     "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contests_judging_times", id: false, force: true do |t|
+    t.integer "contest_id",      null: false
+    t.integer "judging_time_id", null: false
+  end
+
+  add_index "contests_judging_times", ["judging_time_id", "contest_id"], name: "index_contests_judging_times_on_judging_time_id_and_contest_id", unique: true, using: :btree
+
   create_table "costumes", force: true do |t|
     t.string   "character_name"
     t.string   "property"
@@ -60,10 +84,22 @@ ActiveRecord::Schema.define(version: 20140707221938) do
   add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
 
   create_table "entries", force: true do |t|
-    t.date     "contest_date"
-    t.integer  "skill_level",  default: 0
-    t.boolean  "hot_or_bulky"
+    t.integer  "skill_level",     default: 0
+    t.boolean  "hot_or_bulky",    default: false
     t.string   "group_name"
+    t.integer  "contest_id"
+    t.integer  "handler_count",   default: 0
+    t.integer  "judging_time_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entries", ["contest_id"], name: "index_entries_on_contest_id", using: :btree
+  add_index "entries", ["judging_time_id"], name: "index_entries_on_judging_time_id", using: :btree
+
+  create_table "judging_times", force: true do |t|
+    t.string   "time"
+    t.boolean  "common",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,6 +5,20 @@ class Entry < ActiveRecord::Base
                       journeyman: 3,
                       master:     4 }
 
-  has_and_belongs_to_many :categories, -> { readonly }
+  has_many :category_entries
+  has_many :categories, through: :category_entries
   has_and_belongs_to_many :contestants
+  belongs_to :contest
+  belongs_to :judging_time
+
+  validate :validate_judging_time
+  validates :contest, presence: true
+
+  private
+
+  def validate_judging_time()
+    unless judging_time.nil? || contest.has_judging_time?(judging_time)
+      errors.add :judging_time, 'is not available'
+    end
+  end
 end
