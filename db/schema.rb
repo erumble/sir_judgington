@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140715004606) do
+ActiveRecord::Schema.define(version: 20140717035624) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20140715004606) do
     t.datetime "updated_at"
   end
 
+  create_table "contests_judging_times", id: false, force: true do |t|
+    t.integer "contest_id",      null: false
+    t.integer "judging_time_id", null: false
+  end
+
+  add_index "contests_judging_times", ["judging_time_id", "contest_id"], name: "index_contests_judging_times_on_judging_time_id_and_contest_id", unique: true, using: :btree
+
   create_table "costumes", force: true do |t|
     t.string   "character_name"
     t.string   "property"
@@ -77,16 +84,25 @@ ActiveRecord::Schema.define(version: 20140715004606) do
   add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
 
   create_table "entries", force: true do |t|
-    t.integer  "skill_level",   default: 0
-    t.boolean  "hot_or_bulky",  default: false
+    t.integer  "skill_level",     default: 0
+    t.boolean  "hot_or_bulky",    default: false
     t.string   "group_name"
     t.integer  "contest_id"
-    t.integer  "handler_count", default: 0
+    t.integer  "handler_count",   default: 0
+    t.integer  "judging_time_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "entries", ["contest_id"], name: "index_entries_on_contest_id", using: :btree
+  add_index "entries", ["judging_time_id"], name: "index_entries_on_judging_time_id", using: :btree
+
+  create_table "judging_times", force: true do |t|
+    t.string   "time"
+    t.boolean  "common",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -1,36 +1,36 @@
 require 'rails_helper'
 
-RSpec.describe Category, type: :model do
-  let(:category) { FactoryGirl.create(:category, name: 'test_category') }
+RSpec.describe JudgingTime, :type => :model do
+  let(:judging_time) { FactoryGirl.create :judging_time, time: '12:00' }
 
-  subject { category }
+  subject { judging_time }
 
-  it { is_expected.to respond_to :name }
+  it { is_expected.to respond_to :time }
   it { is_expected.to respond_to :common? }
-  it { is_expected.to respond_to :entries}
+  it { is_expected.to respond_to :entries }
   it { is_expected.to respond_to :contests }
 
-  describe :name do
-    subject { category.name }
+  describe :time do
+    subject { judging_time.time }
 
     it { is_expected.to be_a String }
-    it { is_expected.to eql 'test_category' }
+    it { is_expected.to eql '12:00' }
   end
 
   describe :common? do
-    subject { category.common? }
+    subject { judging_time.common? }
 
     it { is_expected.to eql false }
   end
 
   describe :entries do
-    subject { category.entries }
+    subject { judging_time.entries }
 
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 
   describe :contests do
-    subject { category.contests }
+    subject { judging_time.contests }
 
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end

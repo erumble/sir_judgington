@@ -6,6 +6,7 @@ class CreateEntries < ActiveRecord::Migration
       t.string :group_name
       t.references :contest, index: true
       t.integer :handler_count, default: 0
+      t.references :judging_time, index: true
 
       t.timestamps
     end

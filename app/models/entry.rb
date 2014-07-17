@@ -9,4 +9,5 @@ class Entry < ActiveRecord::Base
   has_many :categories, through: :category_entries
   has_and_belongs_to_many :contestants
   belongs_to :contest
+  belongs_to :judging_time
 end
