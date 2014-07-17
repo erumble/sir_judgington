@@ -47,7 +47,7 @@ RSpec.describe Contest, :type => :model do
     end
 
     context 'when category is not in contest.categories' do
-      let(:category) { Category.where(name: 'Anime') }
+      let(:category) { FactoryGirl.create(:category).name }
 
       it { is_expected.to eql false }
     end

@@ -2,7 +2,6 @@
 
 FactoryGirl.define do
   factory :category do
-    # name 'Anime'
     sequence(:name) { |n| "Category_#{n}" }
     active true
   end

@@ -1,11 +1,15 @@
 class CategoryEntry < ActiveRecord::Base
   belongs_to :category
   belongs_to :entry
+  validates :category, presence: true
+  validates :entry, presence: true
   validate :validate_category
 
+  private
+
   def validate_category()
-    unless entry.contest.has_category? category
-      errors.add :base, "#{category.name} is not a valid category"
+    if category && entry && !entry.contest.has_category?(category)
+      errors.add :category, 'is not valid for this contest'
     end
   end
 
