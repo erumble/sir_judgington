@@ -7,5 +7,17 @@ FactoryGirl.define do
     group_name 'Trouble Makers'
     handler_count 2
     contest
+    judging_time nil
+
+    factory :entry_with_invalid_judging_time do
+      judging_time
+
+      factory :entry_with_valid_judging_time do
+        after(:build || :create) do |entry|
+          entry.contest.judging_times << entry.judging_time
+        end
+      end
+    end
+
   end
 end

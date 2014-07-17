@@ -8,6 +8,10 @@ class Contest < ActiveRecord::Base
     categories.include? category
   end
 
+  def has_judging_time?(judging_time)
+    judging_times.include? judging_time
+  end
+
   private
 
   def initialize_categories()

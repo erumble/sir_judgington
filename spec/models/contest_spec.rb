@@ -6,7 +6,7 @@ RSpec.describe Contest, :type => :model do
     3.times do
       FactoryGirl.create :category, common: true
       FactoryGirl.create :category, common: false
-      
+
       FactoryGirl.create :judging_time, common: true
       FactoryGirl.create :judging_time, common: false
     end
@@ -69,6 +69,20 @@ RSpec.describe Contest, :type => :model do
     context 'when category is not in contest.categories' do
       let(:category) { Category.where(common: false).take }
 
+      it { is_expected.to eql false }
+    end
+  end
+
+  describe :has_judging_time? do
+    subject { contest.has_judging_time? judging_time }
+
+    context 'when judging_time is in contest.judging_times' do
+      let(:judging_time) { contest.judging_times.take }
+      it { is_expected.to eql true }
+    end
+
+    context 'when judging_time is not in contest.judging_times' do
+      let(:judging_time) { JudgingTime.where(common: false).take }
       it { is_expected.to eql false }
     end
   end

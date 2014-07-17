@@ -60,4 +60,27 @@ RSpec.describe Entry, type: :model do
     it { is_expected.to be_a Integer }
     it { is_expected.to eql 2 }
   end
+
+  describe :valid? do
+    subject { entry.valid? }
+
+    context 'when judging_time is not valid' do
+      let(:entry) { FactoryGirl.build :entry_with_invalid_judging_time }
+
+      it { is_expected.to be false }
+    end
+
+    context 'when judging_time is valid' do
+      let(:entry) { FactoryGirl.build :entry_with_valid_judging_time }
+
+      it { is_expected.to be true }
+    end
+
+    context 'when judging_time is nil' do
+      let(:entry) { FactoryGirl.build :entry }
+
+      it { is_expected.to be true }
+    end
+  end
+
 end
