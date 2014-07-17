@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20140715004606) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.boolean  "active",     default: true
+    t.boolean  "common",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

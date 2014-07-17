@@ -6,7 +6,7 @@ RSpec.describe Category, type: :model do
   subject { category }
 
   it { is_expected.to respond_to :name }
-  it { is_expected.to respond_to :active? }
+  it { is_expected.to respond_to :common? }
   it { is_expected.to respond_to :entries}
 
   describe :name do
@@ -16,10 +16,10 @@ RSpec.describe Category, type: :model do
     it { is_expected.to eql 'test_category' }
   end
 
-  describe :active? do
-    subject { category.active? }
+  describe :common? do
+    subject { category.common? }
 
-    it { is_expected.to eql true }
+    it { is_expected.to eql false }
   end
 
   describe :entries do
