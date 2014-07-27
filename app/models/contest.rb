@@ -12,6 +12,10 @@ class Contest < ActiveRecord::Base
     judging_times.include? judging_time
   end
 
+  def self.create_date_from_params(params)
+    Contest.create! date: Date.new(*(%w(1 2 3).map { |e| params["date(#{e}i)"].to_i }))
+  end
+
   private
 
   def initialize_categories()

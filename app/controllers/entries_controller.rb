@@ -6,10 +6,12 @@ class EntriesController < ApplicationController
 
   def new
     @entry = Entry.new
+    @contestant = Contestant.new
   end
 
   def create
-    @entry = Entry.create params[:entry]
+    @entry = Entry.create! params[:entry].to_h
+
     redirect_to entries_path
   end
 end

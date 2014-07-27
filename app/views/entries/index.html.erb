@@ -1,3 +1,41 @@
-<% @entries.each do |entry| %>
-  <%= entry %>
-<% end %>
+<table id="dude" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot>
+
+        <tbody>
+
+          <% @entries.each do |entry| %>
+            <tr>
+                <td>Dude Man</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+          <% end %>
+
+        </tbody>
+    </table>
+
+<%= link_to :new_entry, new_entry_path %>
+<%= link_to :new_contest, new_contest_path %>
