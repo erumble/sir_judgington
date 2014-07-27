@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.describe Contest, :type => :model do
   # Create some categories so they can be added to the contest
   before :all do
-    3.times do
-      FactoryGirl.create :category, common: true
-      FactoryGirl.create :category, common: false
-
-      FactoryGirl.create :judging_time, common: true
-      FactoryGirl.create :judging_time, common: false
+    [true, false].each do |bool|
+      FactoryGirl.create_list :category, 3, common: bool
+      FactoryGirl.create_list :judging_time, 3, common: bool
     end
   end
 
@@ -21,6 +18,7 @@ RSpec.describe Contest, :type => :model do
   it { is_expected.to respond_to :categories }
   it { is_expected.to respond_to :judging_times }
   it { is_expected.to respond_to :has_category? }
+  it { is_expected.to respond_to :available_judging_times }
 
   describe :date do
     subject { contest.date }
@@ -78,11 +76,13 @@ RSpec.describe Contest, :type => :model do
 
     context 'when judging_time is in contest.judging_times' do
       let(:judging_time) { contest.judging_times.take }
+
       it { is_expected.to eql true }
     end
 
     context 'when judging_time is not in contest.judging_times' do
       let(:judging_time) { JudgingTime.where(common: false).take }
+
       it { is_expected.to eql false }
     end
   end
@@ -91,5 +91,29 @@ RSpec.describe Contest, :type => :model do
     let(:params) { { "date(1i)" => 2012, "date(1i)" => 12, "date(1i)" => 12 } }
   end
 
+  describe :available_judging_times do
+    let(:c2) { FactoryGirl.create :contest }
+    subject { contest.available_judging_times }
+
+    context 'when no judging times are used up' do
+      it 'should have the same times as contest.judging_times' do
+        expect(contest.available_judging_times).to eql contest.judging_times.to_a
+      end
+    end
+
+    context 'when a judging time is used up' do
+      before :each do
+        FactoryGirl.create_list :entry, 5, contest: contest, judging_time: contest.judging_times.first
+      end
+
+      it 'should have 1 fewer judging times' do
+        expect(contest.available_judging_times.count).to eql (contest.judging_times.count - 1)
+      end
+
+      it 'should not interfere with contest_two' do
+        expect(contest.available_judging_times.count).not_to eql c2.available_judging_times.count
+      end
+    end
+  end
 
 end

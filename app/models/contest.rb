@@ -9,7 +9,15 @@ class Contest < ActiveRecord::Base
   end
 
   def has_judging_time?(judging_time)
-    judging_times.include? judging_time
+    available_judging_times.include? judging_time
+  end
+
+  def available_judging_times()
+    time = []
+    judging_times.each do |jt|
+      time << jt if entries.where(judging_time: jt).count < 5
+    end
+    time
   end
 
   def self.create_date_from_params(params)
