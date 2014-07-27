@@ -20,5 +20,10 @@ class Entry < ActiveRecord::Base
     unless judging_time.nil? || contest.has_judging_time?(judging_time)
       errors.add :judging_time, 'is not available'
     end
+
+    if judging_time && exhibition?
+      errors.add :judging_time, 'exhibition entries are not judged'
+    end
   end
+
 end
