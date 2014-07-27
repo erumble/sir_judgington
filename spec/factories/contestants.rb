@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :contestant, aliases: [:owner] do
     first_name 'John'
     last_name 'Smith'
+    phonetic_spelling 'John Smith'
     email 'john.smith@example.com'
   end
 end

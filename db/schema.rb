@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140717035624) do
   create_table "contestants", force: true do |t|
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "phonetic_spelling"
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -7,6 +7,7 @@ RSpec.describe Contestant, type: :model do
 
   it { is_expected.to respond_to :first_name }
   it { is_expected.to respond_to :last_name }
+  it { is_expected.to respond_to :phonetic_spelling }
   it { is_expected.to respond_to :email }
   it { is_expected.to respond_to :owned_costumes }
   it { is_expected.to respond_to :created_costumes }
@@ -24,6 +25,13 @@ RSpec.describe Contestant, type: :model do
 
     it { is_expected.to be_a String }
     it { is_expected.to eql 'Smith' }
+  end
+
+  describe :phonetic_spelling do
+    subject { contestant.phonetic_spelling }
+
+    it { is_expected.to be_a String }
+    it { is_expected.to eql 'John Smith'}
   end
 
   describe :email do
