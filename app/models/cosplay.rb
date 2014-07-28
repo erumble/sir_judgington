@@ -1,7 +1,7 @@
 class Cosplay < ActiveRecord::Base
-  belongs_to :person
+  belongs_to :owner, class_name: 'Person'
   belongs_to :character
   belongs_to :entry
 
-  validates :person, :character, :entry, presence: true
+  validates :owner, :character, :entry, presence: true
 end

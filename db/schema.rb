@@ -45,15 +45,6 @@ ActiveRecord::Schema.define(version: 20140727210036) do
     t.datetime "updated_at"
   end
 
-  create_table "contestants", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "phonetic_spelling"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "contestants_costumes", id: false, force: true do |t|
     t.integer "contestant_id", null: false
     t.integer "costume_id",    null: false
@@ -82,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140727210036) do
   add_index "contests_judging_times", ["judging_time_id", "contest_id"], name: "index_contests_judging_times_on_judging_time_id_and_contest_id", unique: true, using: :btree
 
   create_table "cosplays", force: true do |t|
-    t.integer  "person_id"
+    t.integer  "owner_id"
     t.integer  "character_id"
     t.integer  "entry_id"
     t.datetime "created_at"
@@ -91,17 +82,7 @@ ActiveRecord::Schema.define(version: 20140727210036) do
 
   add_index "cosplays", ["character_id"], name: "index_cosplays_on_character_id", using: :btree
   add_index "cosplays", ["entry_id"], name: "index_cosplays_on_entry_id", using: :btree
-  add_index "cosplays", ["person_id"], name: "index_cosplays_on_person_id", using: :btree
-
-  create_table "costumes", force: true do |t|
-    t.string   "character_name"
-    t.string   "property"
-    t.integer  "owner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
+  add_index "cosplays", ["owner_id"], name: "index_cosplays_on_owner_id", using: :btree
 
   create_table "entries", force: true do |t|
     t.integer  "skill_level",     default: 0

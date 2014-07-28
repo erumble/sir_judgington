@@ -5,15 +5,14 @@ class Entry < ActiveRecord::Base
                       journeyman: 3,
                       master:     4 }
 
-  has_many :category_entries
-  has_many :categories, through: :category_entries
-  has_and_belongs_to_many :contestants
   belongs_to :contest
   belongs_to :judging_time
 
+  has_many :category_entries
+  has_many :categories, through: :category_entries
+
   has_many :cosplays
-  # has_many :contestants, class_name: 'Person', through: :cosplays
-  has_many :people, through: :cosplays # change to above line once it is working
+  has_many :contestants, through: :cosplays, source: :owner
   has_many :characters, through: :cosplays
 
   validate :validate_judging_time

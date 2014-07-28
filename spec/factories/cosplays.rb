@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :cosplay do
-    person
+    owner
     character
     entry
   end
