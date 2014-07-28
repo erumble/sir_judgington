@@ -11,6 +11,11 @@ class Entry < ActiveRecord::Base
   belongs_to :contest
   belongs_to :judging_time
 
+  has_many :cosplays
+  # has_many :contestants, class_name: 'Person', through: :cosplays
+  has_many :people, through: :cosplays # change to above line once it is working
+  has_many :characters, through: :cosplays
+
   validate :validate_judging_time
   validates :contest, presence: true
 
