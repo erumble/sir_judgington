@@ -45,20 +45,6 @@ ActiveRecord::Schema.define(version: 20140727210036) do
     t.datetime "updated_at"
   end
 
-  create_table "contestants_costumes", id: false, force: true do |t|
-    t.integer "contestant_id", null: false
-    t.integer "costume_id",    null: false
-  end
-
-  add_index "contestants_costumes", ["costume_id", "contestant_id"], name: "index_contestants_costumes_on_costume_id_and_contestant_id", unique: true, using: :btree
-
-  create_table "contestants_entries", id: false, force: true do |t|
-    t.integer "contestant_id", null: false
-    t.integer "entry_id",      null: false
-  end
-
-  add_index "contestants_entries", ["entry_id", "contestant_id"], name: "index_contestants_entries_on_entry_id_and_contestant_id", unique: true, using: :btree
-
   create_table "contests", force: true do |t|
     t.date     "date"
     t.datetime "created_at"
