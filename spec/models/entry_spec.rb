@@ -81,6 +81,12 @@ RSpec.describe Entry, type: :model do
 
       it { is_expected.to be true }
     end
+
+    context 'when judging_time is not nil and entry is exhibition' do
+      let(:entry) { FactoryGirl.build :entry_with_valid_judging_time, skill_level: 0 }
+
+      it { is_expected.to be false }
+    end
   end
 
 end
