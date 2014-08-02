@@ -2,36 +2,21 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Character</th>
+                <th>Property</th>
             </tr>
         </thead>
-
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
 
         <tbody>
 
           <% @entries.each do |entry| %>
-            <tr>
-                <td>Dude Man</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011/04/25</td>
-                <td>$320,800</td>
-            </tr>
+            <% entry.cosplays.each do |cosplay| %>
+              <tr>
+                  <td><%= cosplay.owner.first_name %></td>
+                  <td><%= cosplay.character.name %></td>
+                  <td><%= cosplay.character.property %></td>
+              </tr>
+            <% end %>
           <% end %>
 
         </tbody>

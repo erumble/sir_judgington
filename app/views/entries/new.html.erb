@@ -1,12 +1,12 @@
 <%= simple_form_for @entry do |f| %>
-  <%= simple_fields_for :contestants do |c| %>
-    <%= c.input :first_name %>
-    <%= c.input :last_name %>
-    <%= c.input :email %>
+  <%= simple_fields_for :person do |person| %>
+    <%= person.input :first_name %>
+    <%= person.input :last_name %>
+    <%= person.input :email %>
   <% end %>
-  <%= simple_fields_for :costume do |costume| %>
-    <%= costume.input :character_name %>
-    <%= costume.input :property %>
+  <%= simple_fields_for :character do |character| %>
+    <%= character.input :name %>
+    <%= character.input :property %>
   <% end %>
   <%= f.association :contest %>
   <%= f.button :submit %>
