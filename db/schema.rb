@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140717035624) do
+ActiveRecord::Schema.define(version: 20140727210036) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -38,27 +38,12 @@ ActiveRecord::Schema.define(version: 20140717035624) do
   add_index "category_entries", ["entry_id", "category_id"], name: "index_category_entries_on_entry_id_and_category_id", unique: true, using: :btree
   add_index "category_entries", ["entry_id"], name: "index_category_entries_on_entry_id", using: :btree
 
-  create_table "contestants", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
+  create_table "characters", force: true do |t|
+    t.string   "name"
+    t.string   "property"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "contestants_costumes", id: false, force: true do |t|
-    t.integer "contestant_id", null: false
-    t.integer "costume_id",    null: false
-  end
-
-  add_index "contestants_costumes", ["costume_id", "contestant_id"], name: "index_contestants_costumes_on_costume_id_and_contestant_id", unique: true, using: :btree
-
-  create_table "contestants_entries", id: false, force: true do |t|
-    t.integer "contestant_id", null: false
-    t.integer "entry_id",      null: false
-  end
-
-  add_index "contestants_entries", ["entry_id", "contestant_id"], name: "index_contestants_entries_on_entry_id_and_contestant_id", unique: true, using: :btree
 
   create_table "contests", force: true do |t|
     t.date     "date"
@@ -73,15 +58,17 @@ ActiveRecord::Schema.define(version: 20140717035624) do
 
   add_index "contests_judging_times", ["judging_time_id", "contest_id"], name: "index_contests_judging_times_on_judging_time_id_and_contest_id", unique: true, using: :btree
 
-  create_table "costumes", force: true do |t|
-    t.string   "character_name"
-    t.string   "property"
+  create_table "cosplays", force: true do |t|
     t.integer  "owner_id"
+    t.integer  "character_id"
+    t.integer  "entry_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "costumes", ["owner_id"], name: "index_costumes_on_owner_id", using: :btree
+  add_index "cosplays", ["character_id"], name: "index_cosplays_on_character_id", using: :btree
+  add_index "cosplays", ["entry_id"], name: "index_cosplays_on_entry_id", using: :btree
+  add_index "cosplays", ["owner_id"], name: "index_cosplays_on_owner_id", using: :btree
 
   create_table "entries", force: true do |t|
     t.integer  "skill_level",     default: 0
@@ -100,6 +87,15 @@ ActiveRecord::Schema.define(version: 20140717035624) do
   create_table "judging_times", force: true do |t|
     t.string   "time"
     t.boolean  "common",     default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phonetic_spelling"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
