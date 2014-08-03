@@ -18,8 +18,8 @@ class Entry < ActiveRecord::Base
   validate :validate_judging_time
   validates :contest, presence: true
 
-  delegate :first_name, :last_name, :email, to: :contestants
-  accepts_nested_attributes_for :contestants
+  # delegate :first_name, :last_name, :email, to: :contestants
+  # accepts_nested_attributes_for :contestants, :category_entries
 
   private
 

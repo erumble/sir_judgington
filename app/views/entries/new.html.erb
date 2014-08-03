@@ -11,9 +11,10 @@
   <% end %>
 
   <!-- Glorious Dropdown -->
-  <%= f.input :skill_level do %>
-    <%= f.select :skill_level, Entry.skill_levels.keys.map{ |k| k.humanize } %>
-  <% end %>
+  <%= f.input :skill_level,
+              collection: Entry.skill_levels,
+              label_method: lambda { |obj| obj.first.titleize },
+              value_method: :first %>
 
   <%= f.association :judging_time,
                     collection: Contest.last.available_judging_times,
@@ -25,6 +26,11 @@
                     label_method: :date,
                     value_method: :id,
                     include_blank: false %>
+
+  <%= f.association :categories,
+                    as: :check_boxes,
+                    collection: Contest.last.categories,
+                    label_method: lambda { |obj| obj.name.titleize } %>
 
   <%= f.button :submit %>
 <% end %>

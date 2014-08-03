@@ -9,6 +9,7 @@ class EntriesController < ApplicationController
   end
 
   def create
+    binding.pry
     @entry = Entry.create! entry_params
 
     person = Person.where(person_params).first_or_create
@@ -19,6 +20,7 @@ class EntriesController < ApplicationController
 
     redirect_to entries_path
   end
+
 
   private
 
@@ -31,8 +33,8 @@ class EntriesController < ApplicationController
   end
 
   def entry_params
-    params[:entry][:skill_level].downcase! if params[:entry][:skill_level]
     # contest id should not be permitted, it should be set by the system
     params.require(:entry).permit(:judging_time_id, :contest_id, :skill_level, :hot_or_bulky?, :group_name, :handler_count)
   end
+
 end
