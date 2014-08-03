@@ -9,16 +9,20 @@ class EntriesController < ApplicationController
   end
 
   def create
-    binding.pry
-    @entry = Entry.create! entry_params
+    begin
+      @entry = Entry.create! entry_params
 
-    person = Person.where(person_params).first_or_create
+      person = Person.where(person_params).first_or_create
 
-    character = Character.where(character_params).first_or_create
+      character = Character.where(character_params).first_or_create
 
-    Cosplay.create!(owner: person, entry: @entry, character: character)
+      Cosplay.create!(owner: person, entry: @entry, character: character)
 
-    redirect_to entries_path
+      redirect_to entries_path
+    rescue => e
+      flash[:error] = "There was an error saving the entry."
+      redirect_to :back
+    end
   end
 
 
