@@ -2,12 +2,29 @@
   <%= simple_fields_for :person do |person| %>
     <%= person.input :first_name %>
     <%= person.input :last_name %>
+    <%= person.input :phonetic_spelling %>
     <%= person.input :email %>
   <% end %>
   <%= simple_fields_for :character do |character| %>
     <%= character.input :name %>
     <%= character.input :property %>
   <% end %>
-  <%= f.association :contest %>
+
+  <!-- Glorious Dropdown -->
+  <%= f.input :skill_level do %>
+    <%= f.select :skill_level, Entry.skill_levels.keys.map{ |k| k.humanize } %>
+  <% end %>
+
+  <%= f.association :judging_time,
+                    collection: Contest.last.available_judging_times,
+                    label_method: :time,
+                    value_method: :id,
+                    include_blank: false %>
+
+  <%= f.association :contest,
+                    label_method: :date,
+                    value_method: :id,
+                    include_blank: false %>
+
   <%= f.button :submit %>
 <% end %>

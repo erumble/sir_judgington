@@ -1,9 +1,13 @@
 <table id="dude" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email Address</th>
+                <th>Skill Level</th>
                 <th>Character</th>
                 <th>Property</th>
+                <th>Judging Time</th>
             </tr>
         </thead>
 
@@ -12,9 +16,13 @@
           <% @entries.each do |entry| %>
             <% entry.cosplays.each do |cosplay| %>
               <tr>
-                  <td><%= cosplay.owner.first_name %></td>
-                  <td><%= cosplay.character.name %></td>
-                  <td><%= cosplay.character.property %></td>
+                  <td><%= cosplay.owner_first_name %></td>
+                  <td><%= cosplay.owner_last_name %></td>
+                  <td><%= cosplay.owner_email %></td>
+                  <td><%= entry.skill_level %></td>
+                  <td><%= cosplay.character_name %></td>
+                  <td><%= cosplay.character_property %></td>
+                  <td><%= entry.judging_time.time if entry.judging_time %></td>
               </tr>
             <% end %>
           <% end %>
