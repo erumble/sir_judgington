@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe EntriesController, type: :controller do
+  before :each do
+    allow(Entry).to receive(:create!) { true }
+  end
+
   describe 'index' do
     subject { get :index, {  } }
     it { is_expected.to be_success }

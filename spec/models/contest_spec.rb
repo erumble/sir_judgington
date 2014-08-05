@@ -87,6 +87,10 @@ RSpec.describe Contest, :type => :model do
     end
   end
 
+  describe :create_date_from_params do
+    let(:params) { { "date(1i)" => 2012, "date(1i)" => 12, "date(1i)" => 12 } }
+  end
+
   describe :available_judging_times do
     let(:c2) { FactoryGirl.create :contest }
     subject { contest.available_judging_times }
