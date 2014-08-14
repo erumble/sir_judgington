@@ -16,6 +16,8 @@ gem 'pundit'
 gem 'simple_form'
 gem 'active_model_serializers'
 gem 'font-awesome-rails'
+gem 'haml'
+gem 'cocoon'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
