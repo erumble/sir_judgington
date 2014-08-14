@@ -7,4 +7,7 @@ class Cosplay < ActiveRecord::Base
 
   delegate :first_name, :last_name, :email, :phonetic_spelling, to: :owner, prefix: true
   delegate :name, :property, to: :character, prefix: true
+
+  accepts_nested_attributes_for :owner, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :character, :reject_if => :all_blank, :allow_destroy => true
 end

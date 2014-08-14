@@ -6,6 +6,15 @@ class EntriesController < ApplicationController
 
   def new
     @entry = Entry.new
+
+    3.times do
+      cosplay = Cosplay.new
+      owner = Person.new
+      character = Character.new
+      cosplay.owner = owner
+      cosplay.character = character
+      @entry.cosplays << cosplay
+    end
   end
 
   def create
