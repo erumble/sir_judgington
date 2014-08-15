@@ -34,12 +34,13 @@
             input_html: { class: "checkbox" }                 |
           -#
     .row
-      %p Yo Dawg, heard you liked entries
-
+      %h3 Yo Dawg, heard you liked entries
       #cosplays
-        = f.simple_fields_for :cosplays do |cosplay|
-          = render 'cosplay_fields', :f => cosplay
         .links
-          = link_to_add_association plus_button, f, :cosplays, :render_options => {:wrapper => 'bootstrap' }
-      -# = f.submit
+          = link_to_add_association plus_button, f, :cosplays, :partial => 'cosplay_fields', :render_options => {:wrapper => 'bootstrap' }, :data => {"association-insertion-method" => "before", "association-insertion-node" => "#derpa" }
+        = f.simple_fields_for :cosplays do |cosplay|
+          -# - binding.pry
+          = render 'cosplay_fields', :f => cosplay
+        #derpa goblin spawn point
+
     = f.button :submit, class: 'btn-primary pull-right'
