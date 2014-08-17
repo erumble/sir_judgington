@@ -1,0 +1,12 @@
+.nested-fields.span12.form-inline
+  - f.object.build_owner if f.object.owner.nil?
+  - f.object.build_character if f.object.character.nil?
+  = f.simple_fields_for :owner do |owner|
+    = owner.text_field :first_name, placeholder: "First name", class: "form-control span2"
+    = owner.text_field :last_name, placeholder: "Last name", class: "form-control span2"
+    = owner.text_field :phonetic_spelling, placeholder: "Phonetic spelling", class: "form-control span2"
+    = owner.text_field :email, placeholder: "Email", class: "form-control span2"
+  = f.simple_fields_for :character do |character|
+    = character.text_field :name, placeholder: "Character name", class: "form-control span2"
+    = character.text_field :property, placeholder: "Intellectual property", class: "form-control span2"
+  = link_to_remove_association trashcan_button, f

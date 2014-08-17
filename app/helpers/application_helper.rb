@@ -12,4 +12,12 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def trashcan_button
+    raw("<button class='btn btn-default'><i class='fa fa-lg fa-trash-o'></i></button>")
+  end
+
+  def plus_button
+    raw("<button class='btn btn-default'><i class='fa fa-lg fa-plus'></i></button>")
+  end
+
 end
