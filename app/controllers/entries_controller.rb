@@ -18,6 +18,7 @@ class EntriesController < ApplicationController
   def create
     begin
       entry = create_entry_object_from_params
+      EntriesHelper.configure_for_exhibition!(entry)
       entry.save!
 
       flash[:success] = "Awesome!"

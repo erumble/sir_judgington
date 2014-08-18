@@ -10,13 +10,16 @@
           input_html: { class: 'form-control span4' }        |
         -#
       .col-lg-6
-        = f.association :judging_time,                      |
-          collection: Contest.last.available_judging_times, |
-          label_method: :time,                              |
-          value_method: :id,                                |
-          include_blank: false,                             |
-          input_html: { class: 'form-control span4' }       |
-        -#
+        #entry_judging_time_id_available
+          = f.association :judging_time,                      |
+            collection: Contest.last.available_judging_times, |
+            label_method: :time,                              |
+            value_method: :id,                                |
+            include_blank: false,                             |
+            input_html: { class: 'form-control span4' }       |
+          -#
+        #entry_judging_time_id_unavailable{class: 'hidden'}
+          %label Judging times are not available for exhibition
     .row
       .col-lg-6.col-lg-offset-6
         = f.association :contest, |
