@@ -17,6 +17,7 @@ class Entry < ActiveRecord::Base
 
   validate :validate_judging_time
   validates :contest, presence: true
+  validates :cosplays, presence: true
 
   accepts_nested_attributes_for :cosplays, :reject_if => :all_blank, :allow_destroy => true
 
