@@ -22,11 +22,7 @@
           %label Judging times are not available for exhibition
     .row
       .col-lg-6.col-lg-offset-6
-        = f.association :contest, |
-          label_method: :date,    |
-          value_method: :id,      |
-          include_blank: false    |
-        -#
+        = f.hidden_field :contest
     .row
       .col-lg-6
         .col-lg-6
