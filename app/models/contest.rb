@@ -4,6 +4,10 @@ class Contest < ActiveRecord::Base
   has_and_belongs_to_many :judging_times
   after_create :initialize_categories, :initialize_judging_times
 
+  def self.current
+    where("date between ? and ?", Date.today.beginning_of_year, Date.today.end_of_year).first
+  end
+
   def has_category?(category)
     categories.include? category
   end
