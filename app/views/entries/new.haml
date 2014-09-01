@@ -21,8 +21,8 @@
         #entry_judging_time_id_unavailable{class: 'hidden'}
           %label Judging times are not available for exhibition
     .row
-      .col-lg-6.col-lg-offset-6
-        = f.hidden_field :contest
+      .col-lg-6.col-lg-offset-6{class: 'hidden'}
+        = f.association :contest
     .row
       .col-lg-6
         .col-lg-6
