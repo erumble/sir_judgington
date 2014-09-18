@@ -21,12 +21,8 @@
         #entry_judging_time_id_unavailable{class: 'hidden'}
           %label Judging times are not available for exhibition
     .row
-      .col-lg-6.col-lg-offset-6
-        = f.association :contest, |
-          label_method: :date,    |
-          value_method: :id,      |
-          include_blank: false    |
-        -#
+      .col-lg-6.col-lg-offset-6{class: 'hidden'}
+        = f.association :contest
     .row
       .col-lg-6
         .col-lg-6

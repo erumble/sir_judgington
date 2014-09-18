@@ -8,7 +8,7 @@ class EntriesController < ApplicationController
     @entry = create_entry_object_from_params
     if @entry.nil?
       @entry = Entry.new
-      @entry.contest = Contest.last
+      @entry.contest = Contest.current
       cp = @entry.cosplays.build
       cp.build_owner
       cp.build_character
