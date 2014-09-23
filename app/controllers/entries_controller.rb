@@ -21,7 +21,7 @@ class EntriesController < ApplicationController
       EntriesHelper.configure_for_exhibition!(entry)
       entry.save!
 
-      flash[:success] = "Awesome!"
+      flash[:success] = "Awesome! Contestant is number #{entry.entry_num}"
       respond_to do |format|
         format.html { redirect_to new_entry_path }
       end
