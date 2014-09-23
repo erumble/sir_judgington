@@ -23,6 +23,8 @@ class Entry < ActiveRecord::Base
 
   after_create :set_entry_num
 
+  delegate :number_chalice, to: :contest, prefix: true
+
   scope :hot_and_bulky, -> { where(hot_or_bulky: true) }
   scope :exhibition, -> { where(skill_level: 0) }
   scope :regular, -> { where(hot_or_bulky: false, skill_level: [1..4] ) }
@@ -34,25 +36,28 @@ class Entry < ActiveRecord::Base
 
   def set_entry_num
     entry_num = if exhibition?
-      "EX-#{next_ex_num}"
+      "EX-#{get_num_from_chalice(:exhibition).to_s.rjust(2, '0')}"
     elsif hot_or_bulky?
-      "HB-#{next_hb_num}"
+      "HB-#{get_num_from_chalice(:hot_or_bulky).to_s.rjust(2, '0')}"
     else
-      next_reg_num
+      get_num_from_chalice(:regular).to_s.rjust(2, '0')
     end
+
     update(entry_num: entry_num)
   end
 
-  def next_hb_num
-    Entry.hot_and_bulky.count
-  end
-
-  def next_ex_num
-    Entry.exhibition.count
-  end
-
-  def next_reg_num
-    Entry.regular.count
+  def get_num_from_chalice(series)
+    retries = 0
+    begin
+      number_chalice = contest_number_chalice.reload
+      num = number_chalice.send("next_#{series.to_s}".to_sym)
+      number_chalice.update!(series.to_sym => num)
+      num
+    rescue ActiveRecord::StaleObjectError
+      raise if retries >= 3
+      retries += 1
+      retry
+    end
   end
 
   def validate_judging_time()

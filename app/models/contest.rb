@@ -1,8 +1,13 @@
 class Contest < ActiveRecord::Base
+  has_one :number_chalice
   has_many :entries
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :judging_times
+  before_create :build_number_chalice
   after_create :initialize_categories, :initialize_judging_times
+
+  delegate :next_exhibition, :next_hot_or_bulky, :next_regular, to: :number_chalice
+
 
   def self.current
     where("date between ? and ?", Date.today.beginning_of_year, Date.today.end_of_year).first
@@ -16,7 +21,7 @@ class Contest < ActiveRecord::Base
     available_judging_times.include? judging_time
   end
 
-  def available_judging_times()
+  def available_judging_times
     time = []
     judging_times.each do |jt|
       time << jt if entries.where(judging_time: jt).count < 5
@@ -30,11 +35,15 @@ class Contest < ActiveRecord::Base
 
   private
 
-  def initialize_categories()
+  def initialize_categories
     categories << Category.where(common: true)
   end
 
-  def initialize_judging_times()
+  def initialize_judging_times
     judging_times << JudgingTime.where(common: true)
   end
+
+  # def initialize_chalice_of_numbers
+  #   build_chalice_of_numbers
+  # end
 end

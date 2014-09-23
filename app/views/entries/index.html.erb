@@ -20,19 +20,19 @@
       <tbody>
 
         <% @entries.each do |entry| %>
-        <% entry.cosplays.each do |cosplay| %>
-        <tr class=<%= entry.id.odd? ? "odd-entry" : "" %>>
-          <td><%= entry.id %></td>
-          <td><%= cosplay.owner_first_name %></td>
-          <td><%= cosplay.owner_last_name %></td>
-          <td><%= cosplay.owner_email %></td>
-          <td><%= entry.skill_level %></td>
-          <td><%= cosplay.character_name %></td>
-          <td><%= cosplay.character_property %></td>
-          <td><%= entry.judging_time.time if entry.judging_time %></td>
-          <td><%= link_to edit_button, edit_entry_path(entry) %></td>
-        </tr>
-        <% end %>
+          <% entry.cosplays.each do |cosplay| %>
+            <tr class=<%= entry.id.odd? ? "odd-entry" : "" %>>
+              <td><%= entry.entry_num %></td>
+              <td><%= cosplay.owner_first_name %></td>
+              <td><%= cosplay.owner_last_name %></td>
+              <td><%= cosplay.owner_email %></td>
+              <td><%= entry.skill_level %></td>
+              <td><%= cosplay.character_name %></td>
+              <td><%= cosplay.character_property %></td>
+              <td><%= entry.judging_time.time if entry.judging_time %></td>
+              <td><%= link_to edit_button, edit_entry_path(entry) %></td>
+            </tr>
+          <% end %>
         <% end %>
 
       </tbody>

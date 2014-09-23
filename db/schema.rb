@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727210036) do
+ActiveRecord::Schema.define(version: 20140923024334) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -91,6 +91,18 @@ ActiveRecord::Schema.define(version: 20140727210036) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "number_chalices", force: true do |t|
+    t.integer  "exhibition",   default: 0
+    t.integer  "hot_or_bulky", default: 0
+    t.integer  "regular",      default: 0
+    t.integer  "lock_version"
+    t.integer  "contest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "number_chalices", ["contest_id"], name: "index_number_chalices_on_contest_id", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "first_name"
