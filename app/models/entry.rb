@@ -33,14 +33,16 @@ class Entry < ActiveRecord::Base
   private
 
   def change_entry_num_if_necessary
-    skill_level_changed = if self.skill_level_changed?
+    update_entry_num = if self.skill_level_changed?
       self.changes[:skill_level].include? 'exhibition'
+    elsif self.hot_or_bulky_changed?
+      !self.exhibition?
     end
 
     yield
 
-    self.reload #this must be called or very bad things happen
-    set_entry_num if skill_level_changed
+    self.reload # this must be called or very bad things happen
+    set_entry_num if update_entry_num
   end
 
   def set_entry_num
