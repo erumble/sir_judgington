@@ -63,6 +63,10 @@ class Entry < ActiveRecord::Base
     if judging_time && exhibition?
       errors.add :judging_time, 'exhibition entries are not judged'
     end
+
+    if !exhibition? && judging_time.nil?
+      errors.add :judging_time, 'is required for non-exhibition entries'
+    end
   end
 
 end

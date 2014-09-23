@@ -31,6 +31,16 @@ class EntriesController < ApplicationController
     end
   end
 
+  def edit
+    @entry = Entry.find(params[:id])
+  end
+
+  def update
+    @entry = Entry.find(params[:id])
+    @entry.update!(entry_params)
+    redirect_to edit_entry_path(@entry)
+  end
+
   private
 
   def create_entry_object_from_params
@@ -60,7 +70,8 @@ class EntriesController < ApplicationController
       :hot_or_bulky?,
       :group_name,
       :handler_count,
-      :category_ids => []
+      :category_ids => [],
+      :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
     )
   end
 

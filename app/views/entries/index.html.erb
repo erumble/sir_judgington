@@ -1,34 +1,46 @@
-<table id="dude" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email Address</th>
-                <th>Skill Level</th>
-                <th>Character</th>
-                <th>Property</th>
-                <th>Judging Time</th>
-            </tr>
-        </thead>
+<div class="row">
 
-        <tbody>
+  <div class="col-md-8 col-md-offset-2">
 
-          <% @entries.each do |entry| %>
-            <% entry.cosplays.each do |cosplay| %>
-              <tr>
-                  <td><%= cosplay.owner_first_name %></td>
-                  <td><%= cosplay.owner_last_name %></td>
-                  <td><%= cosplay.owner_email %></td>
-                  <td><%= entry.skill_level %></td>
-                  <td><%= cosplay.character_name %></td>
-                  <td><%= cosplay.character_property %></td>
-                  <td><%= entry.judging_time.time if entry.judging_time %></td>
-              </tr>
-            <% end %>
-          <% end %>
+    <table id="dude" class="display">
+      <thead>
+        <tr>
+          <th>Entry Number</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email Address</th>
+          <th>Skill Level</th>
+          <th>Character</th>
+          <th>Property</th>
+          <th>Judging Time</th>
+          <th></th>
+        </tr>
+      </thead>
 
-        </tbody>
+      <tbody>
+
+        <% @entries.each do |entry| %>
+        <% entry.cosplays.each do |cosplay| %>
+        <tr class=<%= entry.id.odd? ? "odd-entry" : "" %>>
+          <td><%= entry.id %></td>
+          <td><%= cosplay.owner_first_name %></td>
+          <td><%= cosplay.owner_last_name %></td>
+          <td><%= cosplay.owner_email %></td>
+          <td><%= entry.skill_level %></td>
+          <td><%= cosplay.character_name %></td>
+          <td><%= cosplay.character_property %></td>
+          <td><%= entry.judging_time.time if entry.judging_time %></td>
+          <td><%= link_to edit_button, edit_entry_path(entry) %></td>
+        </tr>
+        <% end %>
+        <% end %>
+
+      </tbody>
     </table>
 
-<%= link_to :new_entry, new_entry_path %>
-<%= link_to :new_contest, new_contest_path %>
+    <%= link_to :new_entry, new_entry_path, class: "btn btn-primary" %>
+    <%= link_to :new_contest, new_contest_path, class: "btn btn-primary" %>
+
+  </div>
+
+</div>

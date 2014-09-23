@@ -12,10 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
 //= require cocoon
 //= require_tree .
 
 $(document).ready(function() {
-    $('#dude').dataTable();
+  $('#dude').dataTable({
+    "lengthChange": false
+  });
 } );
