@@ -24,7 +24,7 @@ class Entry < ActiveRecord::Base
   after_create :set_entry_num
   around_update :change_entry_num_if_necessary
 
-  delegate :number_chalice, to: :contest, prefix: true
+  delegate :aquire_pristine_virgin_number_from_chalice, to: :contest
 
   scope :hot_and_bulky, -> { where(hot_or_bulky: true) }
   scope :exhibition, -> { where(skill_level: 0) }
@@ -33,7 +33,7 @@ class Entry < ActiveRecord::Base
   private
 
   def change_entry_num_if_necessary
-    update_entry_num = if self.skill_level_changed?
+    i_should_update_entry_num = if self.skill_level_changed?
       self.changes[:skill_level].include? 'exhibition'
     elsif self.hot_or_bulky_changed?
       !self.exhibition?
@@ -42,33 +42,19 @@ class Entry < ActiveRecord::Base
     yield
 
     self.reload # this must be called or very bad things happen
-    set_entry_num if update_entry_num
+    set_entry_num if i_should_update_entry_num
   end
 
   def set_entry_num
     entry_num = if exhibition?
-      "EX-#{get_num_from_chalice(:exhibition).to_s.rjust(2, '0')}"
+      "EX-#{aquire_pristine_virgin_number_from_chalice(:exhibition).to_s.rjust(2, '0')}"
     elsif hot_or_bulky?
-      "HB-#{get_num_from_chalice(:hot_or_bulky).to_s.rjust(2, '0')}"
+      "HB-#{aquire_pristine_virgin_number_from_chalice(:hot_or_bulky).to_s.rjust(2, '0')}"
     else
-      get_num_from_chalice(:regular).to_s.rjust(2, '0')
+      aquire_pristine_virgin_number_from_chalice(:regular).to_s.rjust(2, '0')
     end
 
     update!(entry_num: entry_num)
-  end
-
-  def get_num_from_chalice(series)
-    retries = 0
-    begin
-      number_chalice = contest_number_chalice.reload
-      num = number_chalice.send("next_#{series.to_s}".to_sym)
-      number_chalice.update!(series.to_sym => num)
-      num
-    rescue ActiveRecord::StaleObjectError
-      raise if retries >= 3
-      retries += 1
-      retry
-    end
   end
 
   def validate_judging_time()

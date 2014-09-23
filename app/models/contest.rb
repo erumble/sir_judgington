@@ -33,6 +33,20 @@ class Contest < ActiveRecord::Base
     Contest.create! date: Date.new(*(%w(1 2 3).map { |e| params["date(#{e}i)"].to_i }))
   end
 
+  def aquire_pristine_virgin_number_from_chalice(series)
+    retries = 0
+    begin
+      chalice_of_glorious_numbers = number_chalice.reload
+      num = chalice_of_glorious_numbers.send("next_#{series.to_s}".to_sym)
+      chalice_of_glorious_numbers.update!(series.to_sym => num)
+      num
+    rescue ActiveRecord::StaleObjectError
+      raise if retries >= 3
+      retries += 1
+      retry
+    end
+  end
+
   private
 
   def initialize_categories
