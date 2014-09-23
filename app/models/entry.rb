@@ -22,6 +22,7 @@ class Entry < ActiveRecord::Base
   accepts_nested_attributes_for :cosplays, :reject_if => :all_blank, :allow_destroy => true
 
   after_create :set_entry_num
+  around_update :change_entry_num_if_necessary
 
   delegate :number_chalice, to: :contest, prefix: true
 
@@ -29,10 +30,18 @@ class Entry < ActiveRecord::Base
   scope :exhibition, -> { where(skill_level: 0) }
   scope :regular, -> { where(hot_or_bulky: false, skill_level: [1..4] ) }
 
-  # delegate :first_name, :last_name, :email, to: :contestants
-  # accepts_nested_attributes_for :contestants, :category_entries
-
   private
+
+  def change_entry_num_if_necessary
+    skill_level_changed = if self.skill_level_changed?
+      self.changes[:skill_level].include? 'exhibition'
+    end
+
+    yield
+
+    self.reload #this must be called or very bad things happen
+    set_entry_num if skill_level_changed
+  end
 
   def set_entry_num
     entry_num = if exhibition?
@@ -43,7 +52,7 @@ class Entry < ActiveRecord::Base
       get_num_from_chalice(:regular).to_s.rjust(2, '0')
     end
 
-    update(entry_num: entry_num)
+    update!(entry_num: entry_num)
   end
 
   def get_num_from_chalice(series)
