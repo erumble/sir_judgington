@@ -36,8 +36,14 @@ class EntriesController < ApplicationController
   end
 
   def update
-    @entry = Entry.find(params[:id])
-    @entry.update!(entry_params)
+
+    begin
+      @entry = Entry.find(params[:id])
+      @entry.update!(entry_update_params)
+    rescue => e
+      flash[:error] = "There was an error saving the entry. #{e.message}"
+      redirect_to edit_entry_path(entry: params[:entry])
+    end
     redirect_to edit_entry_path(@entry)
   end
 
@@ -64,15 +70,26 @@ class EntriesController < ApplicationController
   def entry_params
     # contest id should not be permitted, it should be set by the system
     params.require(:entry).permit(
-      :judging_time_id,
-      :contest_id,
-      :skill_level,
-      :hot_or_bulky?,
-      :group_name,
-      :handler_count,
-      :category_ids => [],
-      :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    :judging_time_id,
+    :contest_id,
+    :skill_level,
+    :hot_or_bulky?,
+    :group_name,
+    :handler_count,
+    :category_ids => []
+    # :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
     )
   end
-
+  def entry_update_params
+    params.require(:entry).permit(
+    :judging_time_id,
+    :contest_id,
+    :skill_level,
+    :hot_or_bulky?,
+    :group_name,
+    :handler_count,
+    :category_ids => [],
+    :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    )
+  end
 end
