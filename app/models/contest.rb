@@ -43,7 +43,4 @@ class Contest < ActiveRecord::Base
     judging_times << JudgingTime.where(common: true)
   end
 
-  # def initialize_chalice_of_numbers
-  #   build_chalice_of_numbers
-  # end
 end
