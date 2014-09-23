@@ -37,8 +37,6 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.2.0.0)
-      sass (~> 3.2)
     builder (3.2.2)
     byebug (2.7.0)
       columnize (~> 0.3)
@@ -285,7 +283,6 @@ DEPENDENCIES
   active_model_serializers
   better_errors
   binding_of_caller
-  bootstrap-sass
   capistrano (~> 3.0.1)
   capistrano-bundler
   capistrano-rails (~> 1.1.0)
