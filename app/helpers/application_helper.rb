@@ -20,4 +20,8 @@ module ApplicationHelper
     raw("<button class='btn btn-default'><i class='fa fa-lg fa-plus'></i></button>")
   end
 
+  def edit_button
+    raw("<i class='fa fa-pencil'></i>")
+  end
+
 end

@@ -13,6 +13,7 @@
           <th>Character</th>
           <th>Property</th>
           <th>Judging Time</th>
+          <th></th>
         </tr>
       </thead>
 
@@ -29,6 +30,7 @@
           <td><%= cosplay.character_name %></td>
           <td><%= cosplay.character_property %></td>
           <td><%= entry.judging_time.time if entry.judging_time %></td>
+          <td><%= link_to edit_button, edit_entry_path(entry) %></td>
         </tr>
         <% end %>
         <% end %>
