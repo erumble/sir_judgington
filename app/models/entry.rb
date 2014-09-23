@@ -26,10 +26,6 @@ class Entry < ActiveRecord::Base
 
   delegate :aquire_pristine_virgin_number_from_chalice, to: :contest
 
-  scope :hot_and_bulky, -> { where(hot_or_bulky: true) }
-  scope :exhibition, -> { where(skill_level: 0) }
-  scope :regular, -> { where(hot_or_bulky: false, skill_level: [1..4] ) }
-
   private
 
   def change_entry_num_if_necessary

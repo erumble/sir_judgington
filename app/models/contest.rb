@@ -6,9 +6,6 @@ class Contest < ActiveRecord::Base
   before_create :build_number_chalice
   after_create :initialize_categories, :initialize_judging_times
 
-  delegate :next_exhibition, :next_hot_or_bulky, :next_regular, to: :number_chalice
-
-
   def self.current
     where("date between ? and ?", Date.today.beginning_of_year, Date.today.end_of_year).first
   end
