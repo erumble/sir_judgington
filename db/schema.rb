@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20140727210036) do
     t.integer  "contest_id"
     t.integer  "handler_count",   default: 0
     t.integer  "judging_time_id"
+    t.string   "entry_num"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
