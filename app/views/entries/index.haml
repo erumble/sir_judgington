@@ -1,0 +1,28 @@
+
+.row
+  .col-md-8.col-md-offset-2
+    %table#dude.display
+      %thead
+        %tr
+          %th Entry Number
+          %th First Name
+          %th Last Name
+          %th Email Address
+          %th Skill Level
+          %th Character
+          %th Property
+          %th Judging Time
+          %th
+      %tbody
+        - @entries.each do |entry|
+          - entry.cosplays.each do |cosplay|
+            %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")}"}
+              %td= link_to entry.entry_num, entry_path(entry)
+              %td= cosplay.owner_first_name
+              %td= cosplay.owner_last_name
+              %td= cosplay.owner_email
+              %td= entry.skill_level
+              %td= cosplay.character_name
+              %td= cosplay.character_property
+              %td= entry.judging_time.time if entry.judging_time
+              %td= link_to edit_button, edit_entry_path(entry)
