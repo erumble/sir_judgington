@@ -1,6 +1,8 @@
 .container
   = simple_form_for @entry, wrapper_mappings: { boolean: :vertical_boolean } do |f|
     .row
+      = f.error_notification
+    .row
       .col-lg-6
         = f.input :hot_or_bulky, :label => false, :inline_label => true, :as => :boolean#, :input_html => {:class => :stupid_checkbox} #label: 'Hot or Bulky', boolean_style: :inline #, as: :boolean
     .row

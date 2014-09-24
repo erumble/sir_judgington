@@ -15,13 +15,13 @@ class EntriesController < ApplicationController
   def create
     @entry = Entry.new(entry_update_params)
     if @entry.save
-      flash.discard(:error)
+      # flash.discard(:error)
       flash[:success] = "Entry save was successful."
       respond_to do |format|
         format.html { redirect_to new_entry_path and return }
       end
     end
-    flash[:error] = "There was an error saving the entry."
+    # flash[:error] = @entry.errors.full_messages.join("; ")
     render :new
   end
 
@@ -32,11 +32,11 @@ class EntriesController < ApplicationController
   def update
     @entry = Entry.find(params[:id])
     if @entry.update(entry_update_params)
-      flash.discard(:error)
+      # flash.discard(:error)
       flash[:success] = "Entry update was successful."
       redirect_to edit_entry_path(@entry) and return
     end
-    flash[:error] = "There was an error saving the entry."
+    # flash[:error] = @entry.errors.full_messages.join("; ")
     render :edit
   end
 
