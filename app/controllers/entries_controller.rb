@@ -16,7 +16,7 @@ class EntriesController < ApplicationController
     @entry = Entry.new(entry_update_params)
     if @entry.save
       flash.discard(:error)
-      flash[:success] = "Entry save is successful."
+      flash[:success] = "Entry save was successful."
       respond_to do |format|
         format.html { redirect_to new_entry_path and return }
       end
@@ -33,6 +33,7 @@ class EntriesController < ApplicationController
     @entry = Entry.find(params[:id])
     if @entry.update(entry_update_params)
       flash.discard(:error)
+      flash[:success] = "Entry update was successful."
       redirect_to edit_entry_path(@entry) and return
     end
     flash[:error] = "There was an error saving the entry."
@@ -46,7 +47,7 @@ class EntriesController < ApplicationController
     :judging_time_id,
     :contest_id,
     :skill_level,
-    :hot_or_bulky?,
+    :hot_or_bulky,
     :group_name,
     :handler_count,
     :category_ids => [],
