@@ -19,4 +19,6 @@ $(document).ready(function() {
   $('#dude').dataTable({
     "lengthChange": false
   });
+  // to set up dom thingies
+  //"dom": 'srt<pi>'
 } );
