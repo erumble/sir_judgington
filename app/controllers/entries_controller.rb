@@ -36,14 +36,13 @@ class EntriesController < ApplicationController
   end
 
   def update
-    begin
-      @entry = Entry.find(params[:id])
-      @entry.update!(entry_update_params)
-      redirect_to edit_entry_path(@entry)
-    rescue => e
-      flash[:error] = "There was an error saving the entry. #{e.message}"
-      redirect_to edit_entry_path(entry: params[:entry])
+    @entry = Entry.find(params[:id])
+    if @entry.update(entry_update_params)
+      flash.discard(:error)
+      redirect_to edit_entry_path(@entry) and return
     end
+    flash[:error] = "There was an error saving the entry."
+    render :edit
   end
 
   private
