@@ -1,0 +1,44 @@
+<div class="row">
+
+  <div class="col-md-8 col-md-offset-2">
+
+    <table id="dude" class="display">
+      <thead>
+        <tr>
+          <th>Contest Time</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <% @contests.each do |contest| %>
+        <tr>
+          <td><%= contest.date %></td>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Judging Times</th>
+                </tr>
+              </thead>
+              <tbody>
+                <td>
+                  <% contest.judging_times.each do |time| %>
+                    <span><%= time.time %></span> <%= ", " unless time == contest.judging_times.last %>
+                  <% end %>
+                </td>
+              </tbody>
+            </table>
+          </td>
+          <td><%= link_to edit_button, edit_contest_path(contest) %></td>
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
