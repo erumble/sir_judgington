@@ -27,7 +27,7 @@ class EntriesController < ApplicationController
 
       flash[:success] = "Awesome! Contestant is number #{entry.entry_num}"
       respond_to do |format|
-        format.html { redirect_to new_entry_path }
+        format.html { redirect_to entry_path(entry) }
       end
     rescue => e
       flash[:error] = "There was an error saving the entry. #{e.message}"
@@ -41,14 +41,21 @@ class EntriesController < ApplicationController
 
   def update
     begin
+      update_cosplay_objects_from_params
       entry = Entry.find(params[:id])
       entry.update!(entry_update_params)
       flash[:success] = "Awesome! Contestant is number #{entry.entry_num}"
-    rescue => e
-      flash[:error] = "There was an error saving the entry. #{e.message}"
-      redirect_to edit_entry_path(entry: params[:entry])
+      redirect_to entry_path(entry)
+    rescue ActiveRecord::RecordInvalid => e
+      if e.message == "Validation failed: Cosplays can't be blank"
+        flash[:error] = "Entry number #{entry.entry_num} has been deleted."
+        entry.destroy
+        redirect_to root_path
+      else
+        flash[:error] = "There was an error saving the entry. #{e.message}"
+        redirect_to edit_entry_path(entry: params[:entry])
+      end
     end
-    redirect_to root_path #change to entry_path when we get the UI for it
   end
 
   private
@@ -65,6 +72,32 @@ class EntriesController < ApplicationController
 
     end
     entry
+  end
+
+  def update_cosplay_objects_from_params
+    begin
+      entry = Entry.find(params[:id])
+
+      cosplay_update_params[:cosplays_attributes].each do |k, cos|
+        owner = cos[:owner_attributes][:id] ? Person.find(cos[:owner_attributes][:id])
+          : Person.where(cos[:owner_attributes]).first_or_create
+
+        character = cos[:character_attributes][:id] ? Character.find(cos[:character_attributes][:id])
+          : Character.where(cos[:character_attributes]).first_or_create
+
+        cosplay = cos[:id] ? Cosplay.find(cos[:id])
+          : entry.cosplays.create(owner: owner, character: character)
+
+        owner.update!(cos[:owner_attributes])
+        character.update!(cos[:character_attributes])
+        cosplay.update!(owner: owner, character: character)
+
+        if cos[:_destroy] == '1'
+          cosplay.destroy
+        end
+      end
+    rescue
+    end
   end
 
   def cosplay_params
@@ -93,7 +126,12 @@ class EntriesController < ApplicationController
     :group_name,
     :handler_count,
     :category_ids => [],
-    :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    # :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    )
+  end
+  def cosplay_update_params
+    params.require(:entry).permit(
+      :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
     )
   end
 end
