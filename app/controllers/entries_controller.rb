@@ -36,15 +36,15 @@ class EntriesController < ApplicationController
   end
 
   def update
-
     begin
-      @entry = Entry.find(params[:id])
-      @entry.update!(entry_update_params)
+      entry = Entry.find(params[:id])
+      entry.update!(entry_update_params)
+      flash[:success] = "Awesome! Contestant is number #{entry.entry_num}"
     rescue => e
       flash[:error] = "There was an error saving the entry. #{e.message}"
       redirect_to edit_entry_path(entry: params[:entry])
     end
-    redirect_to edit_entry_path(@entry)
+    redirect_to root_path #change to entry_path when we get the UI for it
   end
 
   private
