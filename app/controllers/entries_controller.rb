@@ -4,6 +4,10 @@ class EntriesController < ApplicationController
     @entries = Entry.all
   end
 
+  def show
+    @entry = Entry.find(params[:id])
+  end
+
   def new
     @entry = create_entry_object_from_params
     if @entry.nil?

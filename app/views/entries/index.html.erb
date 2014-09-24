@@ -6,8 +6,8 @@
       <thead>
         <tr>
           <th>Entry Number</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          <th>Name</th>
+          <th>Phonetic Spelling</th>
           <th>Email Address</th>
           <th>Skill Level</th>
           <th>Character</th>
@@ -18,23 +18,21 @@
       </thead>
 
       <tbody>
-
         <% @entries.each do |entry| %>
           <% entry.cosplays.each do |cosplay| %>
-            <tr data-toggle="modal" data-target="#myModal" class=<%= entry.id.odd? ? "odd-entry" : "" %>>
-              <td><%= entry.entry_num %></td>
-              <td><%= cosplay.owner_first_name %></td>
-              <td><%= cosplay.owner_last_name %></td>
+            <tr class=<%= entry.id.odd? ? "odd-entry" : "" %>>
+              <td><%= link_to entry.entry_num, entry_path(entry) %></td>
+              <td><%= cosplay.owner_full_name.titleize %></td>
+              <td><%= cosplay.owner_phonetic_spelling %></td>
               <td><%= cosplay.owner_email %></td>
-              <td><%= entry.skill_level %></td>
-              <td><%= cosplay.character_name %></td>
-              <td><%= cosplay.character_property %></td>
+              <td><%= entry.skill_level.titleize %></td>
+              <td><%= cosplay.character_name.titleize %></td>
+              <td><%= cosplay.character_property.titleize %></td>
               <td><%= entry.judging_time.time if entry.judging_time %></td>
               <td><%= link_to edit_button, edit_entry_path(entry) %></td>
             </tr>
           <% end %>
         <% end %>
-
       </tbody>
     </table>
 
@@ -53,7 +51,6 @@
       <div class="modal-body">
         <p>
           <%= flash['success'] %>
-          <%= render 'show' %>
         </p>
       </div>
       <div class="modal-footer">
