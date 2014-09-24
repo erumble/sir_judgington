@@ -4,7 +4,9 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    if Category.create(entry_params)
+    @category = Category.create!(entry_params)
+    @category.contests << Contest.where(id: params[:category][:contest_ids].last)
+    if @category
       flash[:success] = "Awesome!"
       respond_to do |format|
         format.html { redirect_to root_path }
@@ -20,7 +22,7 @@ class CategoriesController < ApplicationController
   def entry_params
     # contest id should not be permitted, it should be set by the system
     params.require(:category).permit(
-    :name => []
+    :name
     )
   end
 end
