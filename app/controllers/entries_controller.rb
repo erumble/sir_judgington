@@ -4,6 +4,10 @@ class EntriesController < ApplicationController
     @entries = Entry.all
   end
 
+  def show
+    @entry = Entry.find(params[:id])
+  end
+
   def new
     @entry = Entry.new
     @entry.contest = Contest.current

@@ -1,0 +1,36 @@
+.container
+  .row
+    %h3 Entry: #{@entry.entry_num}
+  .row
+    %h4 Skill Level: #{@entry.skill_level.titleize}
+  - unless @entry.judging_time.nil?
+    .row
+      %h4 Judging Time: #{@entry.judging_time.time}
+  .row
+    %span
+      %h4
+        - categories = [].tap do |arr|
+          - @entry.categories.each do |c|
+            - arr << c.name.titleize
+        = "Categories: #{categories.join(', ')}"
+  .row.well
+    %h4 Cosplays:
+    #cosplays
+      %table#dude.display
+        %thead
+          %tr
+            %th Name
+            %th Phonetic Spelling
+            %th Email
+            %th Character
+            %th Property
+        %tbody
+          - @entry.cosplays.each do |cosplay|
+            %tr
+              %td= cosplay.owner_full_name.titleize
+              %td= cosplay.owner_phonetic_spelling.titleize
+              %td= cosplay.owner_email
+              %td= cosplay.character_name.titleize
+              %td= cosplay.character_property.titleize
+  .row
+    = link_to 'Edit', edit_entry_path(@entry), class: 'btn-primary pull-right', style: "padding: 5px 7px;"
