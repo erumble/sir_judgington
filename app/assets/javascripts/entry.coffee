@@ -9,6 +9,8 @@ toggle_judging_times = ->
       $("#entry_judging_time_id_unavailable").addClass('hidden')
     return
 
+
+
 ready = ->
   toggle_judging_times()
   $("#entry_skill_level").change( ->
@@ -17,5 +19,7 @@ ready = ->
   $('.container').on('cocoon:after-remove', (e, removed_item) ->
     $('#cosplay_delete_alert').removeClass('hidden')
   )
+  # aw_snaps()
+  return
 
 $(document).ready(ready)
