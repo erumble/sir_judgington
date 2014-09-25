@@ -5,29 +5,29 @@
       %thead
         %tr
           %th Entry Number
+          %th Name
+          %th Email
+          %th Character
+          %th Property
+          %th Skill Level
           %th Judging Time
-          %th Datas
           %th
       %tbody
         - @entries.each do |entry|
           %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")}"}
             %td= link_to entry.entry_num, entry_path(entry)
-            %td= entry.judging_time.time if entry.judging_time
             %td
-              %table.display
-                %thead
-                  %tr
-                    %th Name
-                    %th Email Address
-                    %th Skill Level
-                    %th Character
-                    %th Property
-                %tbody
-                  - entry.cosplays.each do |cosplay|
-                    %tr
-                      %td= cosplay.owner_full_name.titleize
-                      %td= cosplay.owner_email
-                      %td= entry.skill_level.titleize
-                      %td= cosplay.character_name.titleize
-                      %td= cosplay.character_property.titleize
+              - entry.cosplays.each do |cosplay|
+                .row= cosplay.owner_full_name.titleize
+            %td
+              - entry.cosplays.each do |cosplay|
+                .row= cosplay.owner_email.titleize
+            %td
+              - entry.cosplays.each do |cosplay|
+                .row= cosplay.character_name.titleize
+            %td
+              - entry.cosplays.each do |cosplay|
+                .row= cosplay.character_property.titleize
+            %td= entry.skill_level.titleize
+            %td= entry.judging_time.time if entry.judging_time
             %td= link_to edit_button, edit_entry_path(entry)
