@@ -100,7 +100,8 @@ class EntriesController < ApplicationController
           cosplay.destroy
         end
       end
-    rescue
+    rescue => e
+      raise e
     end
   end
 
@@ -111,31 +112,36 @@ class EntriesController < ApplicationController
   def entry_params
     # contest id should not be permitted, it should be set by the system
     params.require(:entry).permit(
-    :judging_time_id,
-    :contest_id,
-    :skill_level,
-    :hot_or_bulky,
-    :group_name,
-    :handler_count,
-    :category_ids => []
-    # :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+      :judging_time_id,
+      :contest_id,
+      :skill_level,
+      :hot_or_bulky,
+      :group_name,
+      :handler_count,
+      :category_ids => []
     )
   end
+
   def entry_update_params
     params.require(:entry).permit(
-    :judging_time_id,
-    :contest_id,
-    :skill_level,
-    :hot_or_bulky,
-    :group_name,
-    :handler_count,
-    :category_ids => [],
-    # :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+      :judging_time_id,
+      :contest_id,
+      :skill_level,
+      :hot_or_bulky,
+      :group_name,
+      :handler_count,
+      :category_ids => []
     )
   end
+
   def cosplay_update_params
     params.require(:entry).permit(
-      :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+      :cosplays_attributes => [
+        :id,
+        :_destroy,
+        owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy],
+        character_attributes: [:id, :name, :property, :_destroy]
+      ]
     )
   end
 end
