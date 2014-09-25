@@ -1,0 +1,16 @@
+-# Hiding user controls until that is ready
+-# - if user_signed_in?
+-#   %li= link_to 'Edit account', edit_user_registration_path
+-#   %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+-# - else
+-#   %li= link_to raw("<i class='fa fa-lg fa-sign-in'></i>  Sign in"), new_user_session_path
+-#   %li= link_to raw("<i class='fa fa-lg fa-exclamation-triangle'></i>  Sign up"), new_user_registration_path
+- if Contest.count == 0
+  %li= link_to raw("<i class='fa fa-lg fa-exclamation-triangle'></i>  New Contest"), new_contest_path
+- else
+  %li= link_to raw("<i class='fa fa-lg fa-paw'></i>  New Entry"), new_entry_path
+  %li= link_to raw("<i class='fa fa-lg fa-paw'></i>  Contests"), contests_path
+  %li= link_to raw("<i class='fa fa-lg fa-paw'></i>  New Category"), new_category_path
+-# - if user_signed_in?
+-#   - if current_user.admin?
+-#     %li= link_to 'Users', users_path

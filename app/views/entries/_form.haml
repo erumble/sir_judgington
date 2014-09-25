@@ -1,0 +1,51 @@
+.container
+  = simple_form_for @entry, wrapper_mappings: { boolean: :vertical_boolean } do |f|
+    .row
+      = f.error_notification
+    .row
+      .col-lg-6
+        = f.input :hot_or_bulky, :label => false, :inline_label => true, :as => :boolean#, :input_html => {:class => :stupid_checkbox} #label: 'Hot or Bulky', boolean_style: :inline #, as: :boolean
+    .row
+      / Glorious Dropdown
+      .col-lg-6
+        = f.input :skill_level,                              |
+          collection: Entry.skill_levels,                    |
+          label_method: lambda { |obj| obj.first.titleize }, |
+          value_method: :first,                              |
+          include_blank: false |
+        -#
+      .col-lg-6
+        #entry_judging_time_id_available
+          = f.association :judging_time,                      |
+            collection: Contest.last.available_judging_times, |
+            label_method: :time,                              |
+            value_method: :id,                                |
+            include_blank: true                           |
+          -#
+        #entry_judging_time_id_unavailable{class: 'hidden'}
+          %label Judging times are not available for exhibition
+    .row
+      .col-lg-6.col-lg-offset-6{class: 'hidden'}
+        = f.association :contest
+    .row
+      .col-lg-12
+        .col-lg-6
+          = f.association :categories,                        |
+            as: :check_boxes,                                 |
+            collection: Contest.last.categories,              |
+            label_method: lambda { |obj| obj.name.titleize }, |
+            input_html: { class: "checkbox" },                 |
+            wrapper: :vertical_radio_and_checkboxes |
+          -#
+    .row.well
+      %h3 Cosplays
+      #cosplays
+        .links
+          = link_to_add_association plus_button, f, :cosplays, :partial => 'cosplay_fields', :data => {"association-insertion-method" => "before", "association-insertion-node" => "#derpa" }
+        = f.simple_fields_for :cosplays do |cosplay|
+          -# - binding.pry
+          = render 'cosplay_fields', :f => cosplay
+        #derpa goblin spawn point
+    .row{class: "alert alert-warning hidden", role: "alert", id: 'cosplay_delete_alert'}
+      %p Your delete is not completed until you update the entry.
+    = f.button :submit, class: 'btn-primary pull-right'

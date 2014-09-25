@@ -5,16 +5,18 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
-gem 'bootstrap-sass'
 gem 'devise'
-gem 'figaro', :github=>"laserlemon/figaro"
+gem 'figaro', '~> 1.0.0.rc1'
 gem 'mysql2'
 gem 'pundit'
-gem 'simple_form'
+gem 'simple_form', '~> 3.1.0.rc1', github: 'plataformatec/simple_form', branch: 'master'
+gem 'active_model_serializers'
+gem 'font-awesome-rails'
+gem 'haml'
+gem 'cocoon'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -34,6 +36,7 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-rescue'
   gem 'rspec-rails'
@@ -44,4 +47,6 @@ group :test do
   gem 'faker'
   gem 'launchy'
   gem 'selenium-webdriver'
+  gem 'simplecov', '~> 0.7.1'
+  gem 'shoulda', '~> 3.5.0'
 end
