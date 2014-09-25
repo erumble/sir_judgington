@@ -21,10 +21,37 @@ class Entry < ActiveRecord::Base
 
   accepts_nested_attributes_for :cosplays, :reject_if => :all_blank, :allow_destroy => true
 
-  # delegate :first_name, :last_name, :email, to: :contestants
-  # accepts_nested_attributes_for :contestants, :category_entries
+  after_create :set_entry_num
+  around_update :change_entry_num_if_necessary
+
+  delegate :aquire_pristine_virgin_number_from_chalice, to: :contest
 
   private
+
+  def change_entry_num_if_necessary
+    i_should_update_entry_num = if self.skill_level_changed?
+      self.changes[:skill_level].include? 'exhibition'
+    elsif self.hot_or_bulky_changed?
+      !self.exhibition?
+    end
+
+    yield
+
+    self.reload # this must be called or very bad things happen
+    set_entry_num if i_should_update_entry_num
+  end
+
+  def set_entry_num
+    entry_num = if exhibition?
+      "EX-#{aquire_pristine_virgin_number_from_chalice(:exhibition).to_s.rjust(2, '0')}"
+    elsif hot_or_bulky?
+      "HB-#{aquire_pristine_virgin_number_from_chalice(:hot_or_bulky).to_s.rjust(2, '0')}"
+    else
+      aquire_pristine_virgin_number_from_chalice(:regular).to_s.rjust(2, '0')
+    end
+
+    update!(entry_num: entry_num)
+  end
 
   def validate_judging_time()
     unless judging_time.nil? || contest.has_judging_time?(judging_time)

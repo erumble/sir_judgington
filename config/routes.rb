@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
   resources :contests
   resources :categories
+  resources :judging_times
 
 
   unless Rails.application.config.consider_all_requests_local

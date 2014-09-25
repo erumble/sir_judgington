@@ -21,12 +21,18 @@
               <thead>
                 <tr>
                   <th>Judging Times</th>
+                  <th>Categories</th>
                 </tr>
               </thead>
               <tbody>
                 <td>
                   <% contest.judging_times.each do |time| %>
                     <span><%= time.time %></span> <%= ", " unless time == contest.judging_times.last %>
+                  <% end %>
+                </td>
+                <td>
+                  <% contest.categories.each do |category| %>
+                    <span><%= category.name %></span> <%= ", " unless category == contest.categories.last %>
                   <% end %>
                 </td>
               </tbody>
@@ -39,6 +45,7 @@
       </tbody>
     </table>
 
+  <%= link_to "New Judging Time", new_judging_time_path %>
   </div>
 
 </div>
