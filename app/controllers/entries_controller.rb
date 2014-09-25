@@ -83,14 +83,14 @@ class EntriesController < ApplicationController
       entry = Entry.find(params[:id])
 
       cosplay_update_params[:cosplays_attributes].each do |k, cos|
-        owner = cos[:owner_attributes][:id] ? Person.find(cos[:owner_attributes][:id])
-          : Person.where(cos[:owner_attributes]).first_or_create
+        owner = cos[:owner_attributes][:id].blank? ? Person.where(cos[:owner_attributes]).first_or_create
+          : Person.find(cos[:owner_attributes][:id])
 
-        character = cos[:character_attributes][:id] ? Character.find(cos[:character_attributes][:id])
-          : Character.where(cos[:character_attributes]).first_or_create
+        character = cos[:character_attributes][:id].blank? ? Character.where(cos[:character_attributes]).first_or_create
+          : Character.find(cos[:character_attributes][:id])
 
-        cosplay = cos[:id] ? Cosplay.find(cos[:id])
-          : entry.cosplays.create(owner: owner, character: character)
+        cosplay = cos[:id].blank? ? entry.cosplays.create(owner: owner, character: character)
+          : Cosplay.find(cos[:id])
 
         owner.update!(cos[:owner_attributes])
         character.update!(cos[:character_attributes])
