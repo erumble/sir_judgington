@@ -58,6 +58,10 @@ class EntriesController < ApplicationController
     end
   end
 
+  def person_json_blob
+    render :json => Person.all, root: false
+  end
+
   private
 
   def create_entry_object_from_params
