@@ -110,7 +110,7 @@ class EntriesController < ApplicationController
     :judging_time_id,
     :contest_id,
     :skill_level,
-    :hot_or_bulky?,
+    :hot_or_bulky,
     :group_name,
     :handler_count,
     :category_ids => []
@@ -122,7 +122,7 @@ class EntriesController < ApplicationController
     :judging_time_id,
     :contest_id,
     :skill_level,
-    :hot_or_bulky?,
+    :hot_or_bulky,
     :group_name,
     :handler_count,
     :category_ids => [],
