@@ -13,11 +13,11 @@ module ApplicationHelper
   end
 
   def trashcan_button
-    raw("<button class='btn btn-default'><i class='fa fa-lg fa-trash-o'></i></button>")
+    raw("<i class='fa fa-lg fa-trash-o'></i>")
   end
 
   def plus_button
-    raw("<button class='btn btn-default'><i class='fa fa-lg fa-plus'></i></button>")
+    raw("<i class='fa fa-lg fa-plus'></i>")
   end
 
   def edit_button

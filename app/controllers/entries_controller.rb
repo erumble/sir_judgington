@@ -13,8 +13,9 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(entry_update_params)
-    if @entry.save
+    @entry = Entry.new#(entry_update_params)
+
+    if @entry.update(entry_update_params)
       # flash.discard(:error)
       flash[:success] = "Entry save was successful."
       respond_to do |format|
@@ -40,7 +41,35 @@ class EntriesController < ApplicationController
     render :edit
   end
 
+  def person_json_blob
+    render :json => Person.all, root: false
+  end
+
   private
+
+  def entry_params
+    params.require(:entry).permit(
+    :judging_time_id,
+    :contest_id,
+    :skill_level,
+    :hot_or_bulky,
+    :group_name,
+    :handler_count,
+    :category_ids => []
+    )
+  end
+
+  def cosplays_params
+    params.require(:entry).permit(
+    :cosplays_attributes => [:id, :_destroy, :owner_id, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    )
+  end
+
+  # def person_params()
+  #   params.require(:entry).permit(
+  #   :cosplays_attributes => [owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy]]
+  #   )
+  # end
 
   def entry_update_params
     params.require(:entry).permit(
@@ -51,7 +80,7 @@ class EntriesController < ApplicationController
     :group_name,
     :handler_count,
     :category_ids => [],
-    :cosplays_attributes => [:id, :_destroy, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
+    :cosplays_attributes => [:id, :_destroy, :owner_id, owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy], character_attributes: [:id, :name, :property, :_destroy]]
     )
   end
 end
