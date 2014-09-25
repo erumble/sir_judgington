@@ -21,8 +21,8 @@ class Entry < ActiveRecord::Base
 
   accepts_nested_attributes_for :cosplays, :reject_if => :all_blank, :allow_destroy => true
 
-  # after_create :set_entry_num
-  # around_update :change_entry_num_if_necessary
+  after_create :set_entry_num
+  around_update :change_entry_num_if_necessary
 
   delegate :aquire_pristine_virgin_number_from_chalice, to: :contest
 
