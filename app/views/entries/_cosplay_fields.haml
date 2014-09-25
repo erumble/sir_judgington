@@ -5,6 +5,7 @@
     %div.owners
       -# = f.input :owner_id, as: :hidden
       = f.simple_fields_for :owner do |owner|
+        -# = owner.input :id, as: :hidden, input_html: {class: 'id'}
         = owner.input :email, placeholder: "Email",  label: false, input_html: {class: 'typeahead email'}
         = owner.input :first_name, placeholder: "First name",  label: false, input_html: {class: 'first_name'}
         = owner.input :last_name, placeholder: "Last name",  label: false, input_html: {class: 'last_name'}

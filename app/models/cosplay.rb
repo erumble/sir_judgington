@@ -4,6 +4,7 @@ class Cosplay < ActiveRecord::Base
   belongs_to :entry
 
   validates :owner, :character, presence: true
+  validates :owner, uniqueness: { scope: :entry }
 
   delegate :first_name, :last_name, :full_name, :email, :phonetic_spelling, to: :owner, prefix: true
   delegate :name, :property, to: :character, prefix: true
