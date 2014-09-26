@@ -23,6 +23,7 @@ module EntriesHelper
   def self.update_entry_from_params(entry, entry_params)
     begin
       entry.assign_attributes entry_params
+      self.configure_for_exhibition! entry
     rescue ActiveRecord::RecordNotFound => e
       entry_params[:cosplays_attributes].each do |k, cosplay|
         if cosplay[:person_attributes][:id]
