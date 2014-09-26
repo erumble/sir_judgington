@@ -13,10 +13,10 @@
     %div
       %span.bg-danger #{f.object.errors.full_messages_for(:person).join("; ")}
   %div.pull-left
-    %div
+    %div.characters
       = f.simple_fields_for :character do |character|
-        = character.input :name, placeholder: "Character name",  label: false
-        = character.input :property, placeholder: "Intellectual property",  label: false
+        = character.input :name, placeholder: "Character name",  label: false, input_html: {class: 'typeahead name'}
+        = character.input :property, placeholder: "Intellectual property",  label: false, input_html: {class: 'property'}
     %div
       %span.bg-danger #{f.object.errors.full_messages_for(:character).join("; ")}
   %div.pull-right
@@ -31,4 +31,12 @@
       source: window.aw_snaps.emails.ttAdapter()
     });
     $(".persons .typeahead").on('typeahead:selected', window.aw_snaps.emailItemSelectedHandler);
+
+    $(".characters .typeahead").typeahead('destroy');
+    $(".characters .typeahead").typeahead(null, {
+      name: "name",
+      displayKey: "name",
+      source: window.aw_snaps.characters.ttAdapter()
+    });
+    $(".characters .typeahead").on('typeahead:selected', window.aw_snaps.characterItemSelectedHandler);
   })
