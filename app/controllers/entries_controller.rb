@@ -24,7 +24,7 @@ class EntriesController < ApplicationController
       else
         render :new
       end
-    rescue ActiveRecord::RecordNotUnique => e
+    rescue ActiveRecord::RecordNotUnique
       flash[:error] = 'Same email address used more than once!'
       render :new
     end
