@@ -32,12 +32,20 @@ aw_snaps = ->
     queryTokenizer: Bloodhound.tokenizers.whitespace
     prefetch: "/entries/character_json_blob.json"
   )
-
+  window.aw_snaps.characters2 = new Bloodhound(
+    datumTokenizer: (d) ->
+      return Bloodhound.tokenizers.whitespace(d.property)
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    prefetch: "/entries/character_json_blob.json"
+  )
   window.aw_snaps.emails.clearPrefetchCache();
   window.aw_snaps.emails.initialize()
 
   window.aw_snaps.characters.clearPrefetchCache();
   window.aw_snaps.characters.initialize()
+
+  window.aw_snaps.characters2.clearPrefetchCache();
+  window.aw_snaps.characters2.initialize()
 
   emailTypeahead = $(".persons .typeahead");
   emailTypeahead = $(".characters .typeahead");
@@ -52,7 +60,18 @@ aw_snaps = ->
   window.aw_snaps.characterItemSelectedHandler = (eventObject, suggestionObject, suggestionDataset) ->
     # debugger
     # $($(eventObject.currentTarget).closest(".persons").find("input.id")[0]).val(suggestionObject.id)
-    $($(eventObject.currentTarget).closest(".characters").find("input.property")[0]).val(suggestionObject.property)
+    # $($(eventObject.currentTarget).closest(".characters").find("input.name")[0]).val(suggestionObject.name)
+    $($(eventObject.currentTarget).closest(".characters").find("input.property.tt-input")[0]).val(suggestionObject.property)
+    # $($(eventObject.currentTarget).closest(".characters").find("input.property")[0]).focus()
+    # $(eventObject.currentTarget).focus()
+    return
+  window.aw_snaps.character2ItemSelectedHandler = (eventObject, suggestionObject, suggestionDataset) ->
+    # debugger
+    # $($(eventObject.currentTarget).closest(".persons").find("input.id")[0]).val(suggestionObject.id)
+    $($(eventObject.currentTarget).closest(".characters").find("input.name.tt-input")[0]).val(suggestionObject.name)
+    # $($(eventObject.currentTarget).closest(".characters").find("input.name")[0]).focus()
+    # $(eventObject.currentTarget).focus()
+    # $($(eventObject.currentTarget).closest(".characters").find("input.property")[0]).val(suggestionObject.property)
     return
 
   return

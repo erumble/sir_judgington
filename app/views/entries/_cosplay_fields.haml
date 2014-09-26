@@ -16,7 +16,7 @@
     %div.characters
       = f.simple_fields_for :character do |character|
         = character.input :name, placeholder: "Character name",  label: false, input_html: {class: 'typeahead name'}
-        = character.input :property, placeholder: "Intellectual property",  label: false, input_html: {class: 'property'}
+        = character.input :property, placeholder: "Intellectual property",  label: false, input_html: {class: 'typeahead2 property'}
     %div
       %span.bg-danger #{f.object.errors.full_messages_for(:character).join("; ")}
   %div.pull-right
@@ -55,4 +55,20 @@
       }
     });
     $(".characters .typeahead").on('typeahead:selected', window.aw_snaps.characterItemSelectedHandler);
+
+    $(".characters .typeahead2").typeahead('destroy');
+    $(".characters .typeahead2").typeahead(null, {
+      name: "property",
+      displayKey: "property",
+      source: window.aw_snaps.characters2.ttAdapter(),
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+          'unable to find any characters that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: _.template('<p><%=name%> – <strong><%=property%></strong></p>')
+      }
+    });
+    $(".characters .typeahead2").on('typeahead:selected', window.aw_snaps.character2ItemSelectedHandler);
   })
