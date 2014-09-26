@@ -5,21 +5,24 @@
       %thead
         %tr
           %th Entry Number
+          %th Bulky
           %th Name
-          %th Email
+          %th.no-print Email
           %th Character
           %th Property
-          %th Skill Level
+          %th.no-print Skill Level
           %th Judging Time
-          %th
+          %th.no-print
       %tbody
         - @entries.each do |entry|
           %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")}"}
             %td= link_to entry.entry_num, entry_path(entry)
             %td
+              .row= "#{entry.hot_or_bulky ? "YES" : "NO"}"
+            %td
               - entry.cosplays.each do |cosplay|
                 .row= cosplay.person_full_name.titleize
-            %td
+            %td.no-print
               - entry.cosplays.each do |cosplay|
                 .row= cosplay.person_email.titleize
             %td
@@ -28,6 +31,6 @@
             %td
               - entry.cosplays.each do |cosplay|
                 .row= cosplay.character_property.titleize
-            %td= entry.skill_level.titleize
+            %td.no-print= entry.skill_level.titleize
             %td= entry.judging_time.time if entry.judging_time
-            %td= link_to edit_button, edit_entry_path(entry)
+            %td.no-print= link_to edit_button, edit_entry_path(entry)
