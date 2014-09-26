@@ -42,6 +42,6 @@ aw_snaps = ->
   return
 
 $(document).ready ->
-  $("#dude").dataTable lengthChange: false
+  $("#dude").dataTable lengthChange: false, pageLength: 200, bSort: false
   aw_snaps()
   return
