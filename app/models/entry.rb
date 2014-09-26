@@ -11,8 +11,8 @@ class Entry < ActiveRecord::Base
   has_many :category_entries
   has_many :categories, through: :category_entries
 
-  has_many :cosplays
-  has_many :contestants, through: :cosplays, source: :owner
+  has_many :cosplays, inverse_of: :entry
+  has_many :contestants, through: :cosplays, source: :person
   has_many :characters, through: :cosplays
 
   validate :validate_judging_time

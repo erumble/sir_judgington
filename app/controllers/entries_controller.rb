@@ -12,12 +12,13 @@ class EntriesController < ApplicationController
     @entry = Entry.new
     @entry.contest = Contest.current
     cp = @entry.cosplays.build
-    cp.build_owner
+    cp.build_person
     cp.build_character
   end
 
   def create
     @entry = EntriesHelper.build_entry_from_params entry_params
+    # @entry = Entry.new entry_params
 
     if @entry.save
       redirect_to @entry
@@ -32,8 +33,11 @@ class EntriesController < ApplicationController
 
   def update
     @entry = Entry.find(params[:id])
-    @entry.update! entry_params
-    redirect_to root_path
+    if @entry.update entry_params
+      redirect_to @entry
+    else
+      render :edit
+    end
   end
 
   def person_json_blob
@@ -55,7 +59,7 @@ class EntriesController < ApplicationController
       :cosplays_attributes => [
         :id,
         :_destroy,
-        owner_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy],
+        person_attributes: [:id, :first_name, :last_name, :phonetic_spelling, :email, :_destroy],
         character_attributes: [:id, :name, :property, :_destroy]
       ]
     )

@@ -13,12 +13,20 @@ class ContestsController < ApplicationController
   end
 
   def edit
-    @contest = Contest.where(id: params[:id]).first
+    @contest = Contest.find(params[:id])
   end
 
   def update
-    @contest = Contest.where(id: params[:contest][:id]).first
-    @contest.update_attributes(params[:contest]) if @contest
+    @contest = Contest.find(params[:id])
+    @contest.update(contest_params) if @contest
     redirect_to contests_path
+  end
+
+  private
+
+  def contest_params
+    params.require(:contest).permit(
+      :date
+    )
   end
 end

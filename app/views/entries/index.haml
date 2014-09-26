@@ -18,10 +18,10 @@
             %td= link_to entry.entry_num, entry_path(entry)
             %td
               - entry.cosplays.each do |cosplay|
-                .row= cosplay.owner_full_name.titleize
+                .row= cosplay.person_full_name.titleize
             %td
               - entry.cosplays.each do |cosplay|
-                .row= cosplay.owner_email.titleize
+                .row= cosplay.person_email.titleize
             %td
               - entry.cosplays.each do |cosplay|
                 .row= cosplay.character_name.titleize

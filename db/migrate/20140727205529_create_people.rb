@@ -4,7 +4,7 @@ class CreatePeople < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :phonetic_spelling
-      t.string :email
+      t.string :email, index: true
 
       t.timestamps
     end

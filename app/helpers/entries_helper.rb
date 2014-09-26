@@ -9,10 +9,14 @@ module EntriesHelper
     entry.cosplays.each do |cosplay|
       # character = cosplay.character
       # cosplay.character = Character.where(name: character.name, property: character.property).first_or_create
-      owner = cosplay.owner
-      cosplay.owner = Person.where(email: owner.email, first_name: owner.first_name, last_name: owner.last_name, phonetic_spelling: owner.phonetic_spelling).first_or_create
+      person = cosplay.person
+      cosplay.person = Person.where(email: person.email, first_name: person.first_name, last_name: person.last_name, phonetic_spelling: person.phonetic_spelling).first_or_create
     end
 
     entry
+  end
+
+  def self.update_entry_from_params(entry_params)
+    
   end
 end
