@@ -65,6 +65,30 @@ class Entry < ActiveRecord::Base
     end
   end
 
+  def self.crazy_filter
+    t = Entry.all
+
+    exhibition = t.select{|e| e.entry_num.include?("EX")}
+    others = t - exhibition
+
+    crazier_filter2! exhibition
+    sorted_others = crazier_filter1 others
+
+    exhibition + sorted_others
+  end
+
+  def self.crazier_filter1(ary)
+    hb = ary.select{|e| e.hot_or_bulky == true}
+    others = ary - hb
+    crazier_filter2! hb
+    crazier_filter2! others
+    ary = hb + others
+  end
+
+  def self.crazier_filter2!(ary)
+    ary.sort_by!{|a| a.entry_num.split("-").last}
+  end
+
 end
 #
 # Legal Name:
