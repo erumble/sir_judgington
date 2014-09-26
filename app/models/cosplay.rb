@@ -16,8 +16,10 @@ class Cosplay < ActiveRecord::Base
   accepts_nested_attributes_for :character, :reject_if => :all_blank
 
   def person_not_registered_in_contest
-    if entry.contest.contestants.include? person
-      errors.add(:person, 'Already registered for this contest')
+    contest.contestants.each do |contestant|
+      if (contestant == person) && (!contestant.cosplays.include? self)
+        errors.add(:person, 'Already registered for this contest')
+      end
     end
   end
 end

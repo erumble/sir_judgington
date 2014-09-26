@@ -17,12 +17,15 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = EntriesHelper.build_entry_from_params entry_params
-    # @entry = Entry.new entry_params
-
-    if @entry.save
-      redirect_to @entry
-    else
+    begin
+      @entry = EntriesHelper.build_entry_from_params entry_params
+      if @entry.save
+        redirect_to @entry
+      else
+        render :new
+      end
+    rescue ActiveRecord::RecordNotUnique => e
+      flash[:error] = 'Same email address used more than once!'
       render :new
     end
   end

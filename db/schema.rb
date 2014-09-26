@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 20140923024334) do
     t.datetime "updated_at"
   end
 
+  add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
