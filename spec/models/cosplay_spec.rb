@@ -5,12 +5,12 @@ RSpec.describe Cosplay, :type => :model do
 
   subject { cosplay }
 
-  it { is_expected.to respond_to :owner }
+  it { is_expected.to respond_to :person }
   it { is_expected.to respond_to :character }
   it { is_expected.to respond_to :entry }
 
-  describe :owner do
-    subject { cosplay.owner }
+  describe :person do
+    subject { cosplay.person }
 
     it { is_expected.to be_a Person }
   end

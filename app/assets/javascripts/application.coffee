@@ -29,13 +29,14 @@ aw_snaps = ->
   window.aw_snaps.emails.clearPrefetchCache();
   window.aw_snaps.emails.initialize()
 
-  emailTypeahead = $(".owners .typeahead");
+  emailTypeahead = $(".persons .typeahead");
 
   window.aw_snaps.emailItemSelectedHandler = (eventObject, suggestionObject, suggestionDataset) ->
     # debugger
-    $($(eventObject.currentTarget).closest(".owners").find("input.first_name")[0]).val(suggestionObject.first_name)
-    $($(eventObject.currentTarget).closest(".owners").find("input.last_name")[0]).val(suggestionObject.last_name)
-    $($(eventObject.currentTarget).closest(".owners").find("input.phonetic_spelling")[0]).val(suggestionObject.phonetic_spelling)
+    # $($(eventObject.currentTarget).closest(".persons").find("input.id")[0]).val(suggestionObject.id)
+    $($(eventObject.currentTarget).closest(".persons").find("input.first_name")[0]).val(suggestionObject.first_name)
+    $($(eventObject.currentTarget).closest(".persons").find("input.last_name")[0]).val(suggestionObject.last_name)
+    $($(eventObject.currentTarget).closest(".persons").find("input.phonetic_spelling")[0]).val(suggestionObject.phonetic_spelling)
     return
 
   return

@@ -27,9 +27,9 @@
         %tbody
           - @entry.cosplays.each do |cosplay|
             %tr
-              %td= cosplay.owner_full_name.titleize
-              %td= cosplay.owner_phonetic_spelling.titleize
-              %td= cosplay.owner_email
+              %td= cosplay.person_full_name.titleize
+              %td= cosplay.person_phonetic_spelling.titleize if cosplay.person_phonetic_spelling
+              %td= cosplay.person_email
               %td= cosplay.character_name.titleize
               %td= cosplay.character_property.titleize
   .row

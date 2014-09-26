@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140923024334) do
   add_index "contests_judging_times", ["judging_time_id", "contest_id"], name: "index_contests_judging_times_on_judging_time_id_and_contest_id", unique: true, using: :btree
 
   create_table "cosplays", force: true do |t|
-    t.integer  "owner_id"
+    t.integer  "person_id"
     t.integer  "character_id"
     t.integer  "entry_id"
     t.datetime "created_at"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20140923024334) do
 
   add_index "cosplays", ["character_id"], name: "index_cosplays_on_character_id", using: :btree
   add_index "cosplays", ["entry_id"], name: "index_cosplays_on_entry_id", using: :btree
-  add_index "cosplays", ["owner_id"], name: "index_cosplays_on_owner_id", using: :btree
+  add_index "cosplays", ["person_id"], name: "index_cosplays_on_person_id", using: :btree
 
   create_table "entries", force: true do |t|
     t.integer  "skill_level",     default: 0
