@@ -51,8 +51,8 @@ class Entry < ActiveRecord::Base
     self.entry_num = entry_num
   end
 
-  def validate_judging_time()
-    unless judging_time.nil? || contest.has_judging_time?(judging_time)
+  def validate_judging_time
+    unless judging_time.nil? || contest.has_judging_time?(judging_time, self)
       errors.add :judging_time, 'is not available'
     end
 

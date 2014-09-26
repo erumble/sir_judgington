@@ -17,7 +17,7 @@
       .col-lg-6
         #entry_judging_time_id_available
           = f.association :judging_time,                      |
-            collection: Contest.last.available_judging_times, |
+            collection: Contest.last.available_judging_times(@entry), |
             label_method: :time,                              |
             value_method: :id,                                |
             include_blank: true                           |

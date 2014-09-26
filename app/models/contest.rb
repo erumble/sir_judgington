@@ -15,16 +15,19 @@ class Contest < ActiveRecord::Base
     categories.include? category
   end
 
-  def has_judging_time?(judging_time)
-    available_judging_times.include? judging_time
+  def has_judging_time?(judging_time, entry)
+    available_judging_times(entry).include? judging_time
   end
 
-  def available_judging_times
-    time = []
-    judging_times.each do |jt|
-      time << jt if entries.where(judging_time: jt).count < 5
+  def available_judging_times(entry)
+    time = [].tap do |row|
+      judging_times.each do |jt|
+        row << jt if entries.where(judging_time: jt).count < 5
+      end
+      if entry.judging_time && (!row.include? entry.judging_time)
+        row << entry.judging_time #if (entry.judging_time) && !row.include? entry.judging_time)
+      end
     end
-    time
   end
 
   def self.create_date_from_params(params)
