@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require cocoon
+#= require underscore-min
 #= require typeahead
 #= require_tree .
 
@@ -25,11 +26,21 @@ aw_snaps = ->
     queryTokenizer: Bloodhound.tokenizers.whitespace
     prefetch: "/entries/person_json_blob.json"
   )
+  window.aw_snaps.characters = new Bloodhound(
+    datumTokenizer: (d) ->
+      return Bloodhound.tokenizers.whitespace(d.name)
+    queryTokenizer: Bloodhound.tokenizers.whitespace
+    prefetch: "/entries/character_json_blob.json"
+  )
 
   window.aw_snaps.emails.clearPrefetchCache();
   window.aw_snaps.emails.initialize()
 
+  window.aw_snaps.characters.clearPrefetchCache();
+  window.aw_snaps.characters.initialize()
+
   emailTypeahead = $(".persons .typeahead");
+  emailTypeahead = $(".characters .typeahead");
 
   window.aw_snaps.emailItemSelectedHandler = (eventObject, suggestionObject, suggestionDataset) ->
     # debugger
@@ -38,10 +49,15 @@ aw_snaps = ->
     $($(eventObject.currentTarget).closest(".persons").find("input.last_name")[0]).val(suggestionObject.last_name)
     $($(eventObject.currentTarget).closest(".persons").find("input.phonetic_spelling")[0]).val(suggestionObject.phonetic_spelling)
     return
+  window.aw_snaps.characterItemSelectedHandler = (eventObject, suggestionObject, suggestionDataset) ->
+    # debugger
+    # $($(eventObject.currentTarget).closest(".persons").find("input.id")[0]).val(suggestionObject.id)
+    $($(eventObject.currentTarget).closest(".characters").find("input.property")[0]).val(suggestionObject.property)
+    return
 
   return
 
 $(document).ready ->
-  $("#dude").dataTable lengthChange: false, pageLength: 200, bSort: false
+  $("#dude").dataTable lengthChange: false, pageLength: 200, aaSorting: []
   aw_snaps()
   return

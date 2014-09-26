@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
   match 'entries/person_json_blob', via: [:get]
+  match 'entries/character_json_blob', via: [:get]
   resources :entries do
 
   end
