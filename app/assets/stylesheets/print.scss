@@ -17,6 +17,20 @@
   {
     content:""
   }
+
+  table {
+    tr {
+      height:30px;
+      font-size: 12pt;
+      &.even {
+        -webkit-print-color-adjust: exact;
+        background: #dfdfdf !important;
+      }
+      td {
+      }
+    }
+  }
+
 }
 @media screen {
   .print-only
