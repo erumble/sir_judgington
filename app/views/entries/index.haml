@@ -17,10 +17,10 @@
         %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")} avoid"}
           %div.avoid
             %td
-              %div.avoid.no-print= link_to entry.entry_num, entry_path(entry)
-              %div.avoid.print-only
-                - entry.cosplays.each do |cosplay|
-                  %div=entry.entry_num
+              %div.avoid= link_to entry.entry_num, entry_path(entry)
+              -# %div.avoid.print-only
+              -#   - entry.cosplays.each do |cosplay|
+              -#     %div=entry.entry_num
             %td
               %div.avoid
                 - entry.cosplays.each do |cosplay|
