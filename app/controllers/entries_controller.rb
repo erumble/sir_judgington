@@ -43,6 +43,12 @@ class EntriesController < ApplicationController
     end
   end
 
+  def destroy
+    @entry = Entry.find(params[:id])
+    @entry.destroy!
+    redirect_to root_path
+  end
+
   def person_json_blob
     render :json => Person.all, root: false
   end
