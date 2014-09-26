@@ -36,7 +36,15 @@
     $(".characters .typeahead").typeahead(null, {
       name: "name",
       displayKey: "name",
-      source: window.aw_snaps.characters.ttAdapter()
+      source: window.aw_snaps.characters.ttAdapter(),
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+          'unable to find any characters that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: _.template('<p><strong><%=name%></strong> – <%=property%></p>')
+      }
     });
     $(".characters .typeahead").on('typeahead:selected', window.aw_snaps.characterItemSelectedHandler);
   })
