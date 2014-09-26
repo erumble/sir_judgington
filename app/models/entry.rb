@@ -70,10 +70,10 @@ class Entry < ActiveRecord::Base
     exhibition = t.select{|e| e.entry_num.include?("EX")}
     others = t - exhibition
 
-    sorted_exhibitions = crazier_filter1 exhibition
+    crazier_filter2! exhibition
     sorted_others = crazier_filter1 others
 
-    sorted_exhibitions + sorted_others
+    exhibition + sorted_others
   end
 
   def self.crazier_filter1(ary)
