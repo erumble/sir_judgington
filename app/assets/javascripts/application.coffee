@@ -13,6 +13,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require cocoon
+#= require underscore-min
 #= require typeahead
 #= require_tree .
 
