@@ -1,4 +1,10 @@
 @media print {
+
+  .avoid {
+    page-break-inside: avoid !important;
+    page-break-after:auto !important;
+  }
+
   main
   {
     margin-top: 0px;
@@ -20,6 +26,7 @@
 
   table {
     tr {
+
       height:30px;
       font-size: 12pt;
       &.even {
