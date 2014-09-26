@@ -28,7 +28,15 @@
     $(".persons .typeahead").typeahead(null, {
       name: "email",
       displayKey: "email",
-      source: window.aw_snaps.emails.ttAdapter()
+      source: window.aw_snaps.emails.ttAdapter(),
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+          'unable to find any people that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: _.template('<p><strong><%=email%></strong> – <%=first_name%> <%=last_name%> - <%=phonetic_spelling%></p>')
+      }
     });
     $(".persons .typeahead").on('typeahead:selected', window.aw_snaps.emailItemSelectedHandler);
 
