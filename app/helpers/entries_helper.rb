@@ -4,7 +4,17 @@ module EntriesHelper
   end
 
   def self.build_entry_from_params(entry_params)
-    entry = Entry.new entry_params
+    begin
+      entry = Entry.new entry_params
+    rescue ActiveRecord::RecordNotFound => e
+      entry_params[:cosplays_attributes].each do |k, cosplay|
+        if cosplay[:person_attributes][:id]
+          cosplay[:person_attributes].delete :id
+        end
+      end
+      
+      retry
+    end
     self.update_people entry
     entry
   end
@@ -13,7 +23,13 @@ module EntriesHelper
     begin
       entry.assign_attributes entry_params
     rescue ActiveRecord::RecordNotFound => e
-      binding.pry
+      entry_params[:cosplays_attributes].each do |k, cosplay|
+        if cosplay[:person_attributes][:id]
+          cosplay[:person_attributes].delete :id
+        end
+      end
+
+      retry
     end
     self.update_people entry
     entry
