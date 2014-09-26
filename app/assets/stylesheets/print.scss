@@ -13,6 +13,10 @@
   .print-only
   {
   }
+  a[href]:after
+  {
+    content:""
+  }
 }
 @media screen {
   .print-only
