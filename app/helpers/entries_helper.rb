@@ -12,7 +12,8 @@ module EntriesHelper
           cosplay[:person_attributes].delete :id
         end
       end
-      
+
+
       retry
     end
     self.update_people entry
@@ -39,9 +40,11 @@ module EntriesHelper
 
   def self.update_people(entry)
     entry.cosplays.each do |cosplay|
+      # if id then it's an update
+      # if no id, it's new
       unless cosplay.id
-        person = cosplay.person
-        cosplay.person = Person.where(email: person.email).first_or_initialize
+        person = Person.find_by(email: cosplay.person.email)
+        cosplay.person = person if person
       end
     end
   end
