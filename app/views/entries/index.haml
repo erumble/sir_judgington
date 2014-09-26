@@ -11,7 +11,7 @@
         %th Character
         %th Property
         %th.no-print Skill Level
-        %th Judging Time
+        %th.no-print Judging Time
         %th.no-print
     %tbody
       - @entries.each do |entry|
@@ -32,5 +32,5 @@
             - entry.cosplays.each do |cosplay|
               .row= cosplay.character_property.titleize
           %td.no-print= entry.skill_level.titleize
-          %td= entry.judging_time.time if entry.judging_time
+          %td.no-print= entry.judging_time.time if entry.judging_time
           %td.no-print= link_to edit_button, edit_entry_path(entry)
