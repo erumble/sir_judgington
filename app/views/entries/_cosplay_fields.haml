@@ -30,11 +30,6 @@
       displayKey: "email",
       source: window.aw_snaps.emails.ttAdapter(),
       templates: {
-        empty: [
-          '<div class="empty-message">',
-          'unable to find any people that match the current query',
-          '</div>'
-        ].join('\n'),
         suggestion: _.template('<p><strong><%=email%></strong> – <%=first_name%> <%=last_name%> - <%=phonetic_spelling%></p>')
       }
     });
@@ -46,11 +41,6 @@
       displayKey: "name",
       source: window.aw_snaps.characters.ttAdapter(),
       templates: {
-        empty: [
-          '<div class="empty-message">',
-          'unable to find any characters that match the current query',
-          '</div>'
-        ].join('\n'),
         suggestion: _.template('<p><strong><%=name%></strong> – <%=property%></p>')
       }
     });
@@ -62,11 +52,6 @@
       displayKey: "property",
       source: window.aw_snaps.characters2.ttAdapter(),
       templates: {
-        empty: [
-          '<div class="empty-message">',
-          'unable to find any characters that match the current query',
-          '</div>'
-        ].join('\n'),
         suggestion: _.template('<p><%=name%> – <strong><%=property%></strong></p>')
       }
     });
