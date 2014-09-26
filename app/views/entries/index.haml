@@ -12,6 +12,7 @@
         %th.no-print Skill Level
         %th.no-print Judging Time
         %th.no-print
+        %th.hidden Categories
     %tbody
       - @entries.each do |entry|
         %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")} avoid"}
@@ -39,3 +40,5 @@
             %td.no-print= entry.skill_level.titleize
             %td.no-print= entry.judging_time.time if entry.judging_time
             %td.no-print= link_to edit_button, edit_entry_path(entry)
+            %td.hidden
+              .row= entry.categories.map{|c| c.name.titleize}.join("; ")
