@@ -1,6 +1,7 @@
 class Contest < ActiveRecord::Base
   has_one :number_chalice
   has_many :entries
+  has_many :contestants, through: :entries, source: :contestants
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :judging_times
   before_create :build_number_chalice
