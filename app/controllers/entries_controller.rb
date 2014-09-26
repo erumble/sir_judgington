@@ -32,8 +32,8 @@ class EntriesController < ApplicationController
   end
 
   def update
-    @entry = Entry.find(params[:id])
-    if @entry.update entry_params
+    @entry = EntriesHelper.update_entry_from_params Entry.find(params[:id]), entry_params
+    if @entry.save
       redirect_to @entry
     else
       render :edit
