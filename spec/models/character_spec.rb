@@ -8,9 +8,9 @@ RSpec.describe Character, :type => :model do
   it { is_expected.to respond_to :name }
   it { is_expected.to respond_to :property }
   it { is_expected.to respond_to :cosplays }
-  it { is_expected.to respond_to :owners }
+  it { is_expected.to respond_to :persons }
   it { is_expected.to respond_to :entries }
-  # it { is_expected.to respond_to :owner }
+  # it { is_expected.to respond_to :person }
   # it { is_expected.to respond_to :creators}
 
   describe :character_name do
@@ -33,8 +33,8 @@ RSpec.describe Character, :type => :model do
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 
-  describe :owners do
-    subject { character.owners }
+  describe :persons do
+    subject { character.persons }
 
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
@@ -45,8 +45,8 @@ RSpec.describe Character, :type => :model do
     it { is_expected.to be_a ActiveRecord::Associations::CollectionProxy }
   end
 
-  # describe :owner do
-  #   subject { character.owner }
+  # describe :person do
+  #   subject { character.person }
   #
   #   it { is_expected.to be_a Contestant }
   # end

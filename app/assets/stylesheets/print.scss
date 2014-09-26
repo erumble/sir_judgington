@@ -1,0 +1,22 @@
+@media print {
+  main
+  {
+    margin-top: 0px;
+  }
+  .no-print,
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_paginate
+  {
+    display: none;
+  }
+  .print-only
+  {
+  }
+}
+@media screen {
+  .print-only
+  {
+    display: none;
+  }
+}

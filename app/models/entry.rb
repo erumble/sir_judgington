@@ -11,18 +11,19 @@ class Entry < ActiveRecord::Base
   has_many :category_entries
   has_many :categories, through: :category_entries
 
-  has_many :cosplays
-  has_many :contestants, through: :cosplays, source: :owner
+  has_many :cosplays, inverse_of: :entry, dependent: :destroy
+  has_many :contestants, through: :cosplays, source: :person
   has_many :characters, through: :cosplays
 
   validate :validate_judging_time
   validates :contest, presence: true
   validates :cosplays, presence: true
+  validates :categories, presence: { message: 'Please select at least one category' }
 
   accepts_nested_attributes_for :cosplays, :reject_if => :all_blank, :allow_destroy => true
 
-  after_create :set_entry_num
-  around_update :change_entry_num_if_necessary
+  before_create :set_entry_num
+  before_update :change_entry_num_if_necessary
 
   delegate :aquire_pristine_virgin_number_from_chalice, to: :contest
 
@@ -35,9 +36,6 @@ class Entry < ActiveRecord::Base
       !self.exhibition?
     end
 
-    yield
-
-    self.reload # this must be called or very bad things happen
     set_entry_num if i_should_update_entry_num
   end
 
@@ -50,11 +48,11 @@ class Entry < ActiveRecord::Base
       aquire_pristine_virgin_number_from_chalice(:regular).to_s.rjust(2, '0')
     end
 
-    update!(entry_num: entry_num)
+    self.entry_num = entry_num
   end
 
-  def validate_judging_time()
-    unless judging_time.nil? || contest.has_judging_time?(judging_time)
+  def validate_judging_time
+    unless judging_time.nil? || contest.has_judging_time?(judging_time, self)
       errors.add :judging_time, 'is not available'
     end
 
@@ -65,6 +63,30 @@ class Entry < ActiveRecord::Base
     if !exhibition? && judging_time.nil?
       errors.add :judging_time, 'is required for non-exhibition entries'
     end
+  end
+
+  def self.crazy_filter
+    t = Entry.all
+
+    exhibition = t.select{|e| e.entry_num.include?("EX")}
+    others = t - exhibition
+
+    crazier_filter2! exhibition
+    sorted_others = crazier_filter1 others
+
+    exhibition + sorted_others
+  end
+
+  def self.crazier_filter1(ary)
+    hb = ary.select{|e| e.hot_or_bulky == true}
+    others = ary - hb
+    crazier_filter2! hb
+    crazier_filter2! others
+    ary = hb + others
+  end
+
+  def self.crazier_filter2!(ary)
+    ary.sort_by!{|a| a.entry_num.split("-").last}
   end
 
 end

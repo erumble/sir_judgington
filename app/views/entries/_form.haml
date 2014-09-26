@@ -17,7 +17,7 @@
       .col-lg-6
         #entry_judging_time_id_available
           = f.association :judging_time,                      |
-            collection: Contest.last.available_judging_times, |
+            collection: Contest.last.available_judging_times(@entry), |
             label_method: :time,                              |
             value_method: :id,                                |
             include_blank: true                           |
@@ -49,3 +49,4 @@
     .row{class: "alert alert-warning hidden", role: "alert", id: 'cosplay_delete_alert'}
       %p Your delete is not completed until you update the entry.
     = f.button :submit, class: 'btn-primary pull-right'
+    = link_to "Delete", entry_path(@entry), :method => :delete, :class => "btn btn-warning pull-left", data: { confirm: "Delete is for a long time and no one can undo it, are you sure?" } if @entry.persisted?

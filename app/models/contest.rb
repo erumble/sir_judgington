@@ -1,6 +1,7 @@
 class Contest < ActiveRecord::Base
   has_one :number_chalice
   has_many :entries
+  has_many :contestants, through: :entries, source: :contestants
   has_and_belongs_to_many :categories
   has_and_belongs_to_many :judging_times
   before_create :build_number_chalice
@@ -14,16 +15,19 @@ class Contest < ActiveRecord::Base
     categories.include? category
   end
 
-  def has_judging_time?(judging_time)
-    available_judging_times.include? judging_time
+  def has_judging_time?(judging_time, entry)
+    available_judging_times(entry).include? judging_time
   end
 
-  def available_judging_times
-    time = []
-    judging_times.each do |jt|
-      time << jt if entries.where(judging_time: jt).count < 5
+  def available_judging_times(entry)
+    time = [].tap do |row|
+      judging_times.each do |jt|
+        row << jt if entries.where(judging_time: jt).count < 5
+      end
+      if entry.judging_time && (!row.include? entry.judging_time)
+        row << entry.judging_time #if (entry.judging_time) && !row.include? entry.judging_time)
+      end
     end
-    time
   end
 
   def self.create_date_from_params(params)

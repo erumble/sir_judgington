@@ -1,21 +1,22 @@
 .nested-fields.form-inline.clearfix
-  - f.object.build_owner if f.object.owner.nil?
+  - f.object.build_person if f.object.person.nil?
   - f.object.build_character if f.object.character.nil?
   %div.pull-left
-    %div.owners
-      -# = f.input :owner_id, as: :hidden
-      = f.simple_fields_for :owner do |owner|
-        = owner.input :email, placeholder: "Email",  label: false, input_html: {class: 'typeahead email'}
-        = owner.input :first_name, placeholder: "First name",  label: false, input_html: {class: 'first_name'}
-        = owner.input :last_name, placeholder: "Last name",  label: false, input_html: {class: 'last_name'}
-        = owner.input :phonetic_spelling, placeholder: "Phonetic spelling",  label: false, input_html: {class: 'phonetic_spelling'}
+    %div.persons
+      -# = f.input :person_id, as: :hidden
+      = f.simple_fields_for :person do |person|
+        -# = person.input :id, as: :hidden, input_html: {class: 'id'}
+        = person.input :email, placeholder: "Email",  label: false, input_html: {class: 'typeahead email'}
+        = person.input :first_name, placeholder: "First name",  label: false, input_html: {class: 'first_name'}
+        = person.input :last_name, placeholder: "Last name",  label: false, input_html: {class: 'last_name'}
+        = person.input :phonetic_spelling, placeholder: "Phonetic spelling",  label: false, input_html: {class: 'phonetic_spelling'}
     %div
-      %span.bg-danger #{f.object.errors.full_messages_for(:owner).join("; ")}
+      %span.bg-danger #{f.object.errors.full_messages_for(:person).join("; ")}
   %div.pull-left
-    %div
+    %div.characters
       = f.simple_fields_for :character do |character|
-        = character.input :name, placeholder: "Character name",  label: false
-        = character.input :property, placeholder: "Intellectual property",  label: false
+        = character.input :name, placeholder: "Character name",  label: false, input_html: {class: 'typeahead name'}
+        = character.input :property, placeholder: "Intellectual property",  label: false, input_html: {class: 'property'}
     %div
       %span.bg-danger #{f.object.errors.full_messages_for(:character).join("; ")}
   %div.pull-right
@@ -23,11 +24,35 @@
 
 :javascript
   $(document).ready(function(){
-    $(".owners .typeahead").typeahead('destroy');
-    $(".owners .typeahead").typeahead(null, {
+    $(".persons .typeahead").typeahead('destroy');
+    $(".persons .typeahead").typeahead(null, {
       name: "email",
       displayKey: "email",
-      source: window.aw_snaps.emails.ttAdapter()
+      source: window.aw_snaps.emails.ttAdapter(),
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+          'unable to find any people that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: _.template('<p><strong><%=email%></strong> – <%=first_name%> <%=last_name%> - <%=phonetic_spelling%></p>')
+      }
     });
-    $(".owners .typeahead").on('typeahead:selected', window.aw_snaps.emailItemSelectedHandler);
+    $(".persons .typeahead").on('typeahead:selected', window.aw_snaps.emailItemSelectedHandler);
+
+    $(".characters .typeahead").typeahead('destroy');
+    $(".characters .typeahead").typeahead(null, {
+      name: "name",
+      displayKey: "name",
+      source: window.aw_snaps.characters.ttAdapter(),
+      templates: {
+        empty: [
+          '<div class="empty-message">',
+          'unable to find any characters that match the current query',
+          '</div>'
+        ].join('\n'),
+        suggestion: _.template('<p><strong><%=name%></strong> – <%=property%></p>')
+      }
+    });
+    $(".characters .typeahead").on('typeahead:selected', window.aw_snaps.characterItemSelectedHandler);
   })
