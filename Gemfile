@@ -50,3 +50,6 @@ group :test do
   gem 'simplecov', '~> 0.7.1'
   gem 'shoulda', '~> 3.5.0'
 end
+group :production do
+  gem 'unicorn-rails'
+end
