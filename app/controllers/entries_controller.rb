@@ -4,6 +4,10 @@ class EntriesController < ApplicationController
     @entries = Entry.crazy_filter
   end
 
+  def csv
+    @entries = Entry.crazy_filter
+  end
+
   def show
     @entry = Entry.find(params[:id])
   end
