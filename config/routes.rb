@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users
   match 'entries/person_json_blob', via: [:get]
   match 'entries/character_json_blob', via: [:get]
+  match 'entries/csv', via: [:get]
   resources :entries do
 
   end

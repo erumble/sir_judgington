@@ -15,30 +15,32 @@
         %th.hidden Categories
     %tbody
       - @entries.each do |entry|
-        %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")} avoid"}
-          %div.avoid
-            %td
-              %div.avoid= link_to entry.entry_num, entry_path(entry)
-              -# %div.avoid.print-only
-              -#   - entry.cosplays.each do |cosplay|
-              -#     %div=entry.entry_num
-            %td
-              %div.avoid
+        %div.avoid
+          %tr{:class => "#{(entry.id.odd? ? "odd-entry" : "")} avoid"}
+            %div.avoid
+              %td
+                %div.avoid= link_to entry.entry_num, entry_path(entry)
+                -# %div.avoid.print-only
+                -#   - entry.cosplays.each do |cosplay|
+                -#     %div=entry.entry_num
+              %td
+                %div.avoid
+                  - entry.cosplays.each do |cosplay|
+                    .row= cosplay.person_full_name.titleize
+              %td.no-print
                 - entry.cosplays.each do |cosplay|
-                  .row= cosplay.person_full_name.titleize
-            %td.no-print
-              - entry.cosplays.each do |cosplay|
-                .row= cosplay.person_email
-            %td
-              %div.avoid
-                - entry.cosplays.each do |cosplay|
-                  .row= cosplay.character_name.titleize
-            %td
-              %div.avoid
-                - entry.cosplays.each do |cosplay|
-                  .row= cosplay.character_property.titleize
-            %td.no-print= entry.skill_level.titleize
-            %td.no-print= entry.judging_time.time if entry.judging_time
-            %td.no-print= link_to edit_button, edit_entry_path(entry)
-            %td.hidden
-              .row= entry.categories.map{|c| c.name.titleize}.join("; ")
+                  .row= cosplay.person_email
+              %td
+                %div.avoid
+                  - entry.cosplays.each do |cosplay|
+                    .row= cosplay.character_name.titleize
+              %td
+                %div.avoid
+                  - entry.cosplays.each do |cosplay|
+                    .row= cosplay.character_property.titleize
+              %td.no-print= entry.skill_level.titleize
+              %td.no-print= entry.judging_time.time if entry.judging_time
+              %td.no-print= link_to edit_button, edit_entry_path(entry)
+              %td.hidden.no-print
+                %div.avoid
+                  .row= entry.categories.map{|c| c.name.titleize}.join("; ")
