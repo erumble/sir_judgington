@@ -1,0 +1,6 @@
+%pre
+  %p= "'','Entry','Name','Character','IP'"
+  - @entries.each do |entry|
+    - entry.cosplays.each do |cp|
+      %p= "'','#{entry.entry_num}','#{cp.person_full_name.titleize}','#{cp.character_name.titleize}','#{cp.character_property.titleize}'"
+    %p ########################################################

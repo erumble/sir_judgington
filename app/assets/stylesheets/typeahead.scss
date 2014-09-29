@@ -100,3 +100,8 @@ span.twitter-typeahead {
 .input-group.input-group-sm span.twitter-typeahead .tt-dropdown-menu {
   top: 28px !important;
 }
+
+.scrollable .tt-dropdown-menu {
+  max-height: 250px;
+  overflow-y: auto;
+}

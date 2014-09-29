@@ -1,4 +1,10 @@
 @media print {
+
+  .avoid {
+    page-break-inside: avoid !important;
+    page-break-after:auto !important;
+  }
+
   main
   {
     margin-top: 0px;
@@ -13,6 +19,25 @@
   .print-only
   {
   }
+  a[href]:after
+  {
+    content:""
+  }
+
+  table {
+    tr {
+
+      height:30px;
+      font-size: 12pt;
+      &.even {
+        -webkit-print-color-adjust: exact;
+        background: #dfdfdf !important;
+      }
+      td {
+      }
+    }
+  }
+
 }
 @media screen {
   .print-only

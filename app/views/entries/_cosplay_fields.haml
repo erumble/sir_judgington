@@ -2,7 +2,7 @@
   - f.object.build_person if f.object.person.nil?
   - f.object.build_character if f.object.character.nil?
   %div.pull-left
-    %div.persons
+    %div.persons.scrollable
       -# = f.input :person_id, as: :hidden
       = f.simple_fields_for :person do |person|
         -# = person.input :id, as: :hidden, input_html: {class: 'id'}
@@ -13,7 +13,7 @@
     %div
       %span.bg-danger #{f.object.errors.full_messages_for(:person).join("; ")}
   %div.pull-left
-    %div.characters
+    %div.characters.scrollable
       = f.simple_fields_for :character do |character|
         = character.input :name, placeholder: "Character name",  label: false, input_html: {class: 'typeahead name'}
         = character.input :property, placeholder: "Intellectual property",  label: false, input_html: {class: 'typeahead2 property'}
