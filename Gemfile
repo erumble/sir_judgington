@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
+
 gem 'rails', '4.1.1'
+gem 'therubyracer', '~> 0.12.2'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -16,6 +18,7 @@ gem 'active_model_serializers'
 gem 'font-awesome-rails'
 gem 'haml'
 gem 'cocoon'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
@@ -33,6 +36,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'pry-byebug'
@@ -40,6 +44,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rspec-rails'
 end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
@@ -49,6 +54,8 @@ group :test do
   gem 'simplecov', '~> 0.7.1'
   gem 'shoulda', '~> 3.5.0'
 end
+
 group :production do
   gem 'unicorn-rails'
 end
+
