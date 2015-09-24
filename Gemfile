@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.7'
 gem 'rails', '4.1.1'
 gem 'therubyracer', '~> 0.12.2'
 gem 'sass-rails', '~> 4.0.3'
@@ -8,9 +8,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
 gem 'devise'
-gem 'figaro', '~> 1.0.0'
 gem 'mysql2'
 gem 'pundit'
 gem 'simple_form', '~> 3.1.0'
@@ -20,6 +18,7 @@ gem 'haml'
 gem 'cocoon'
 
 group :development do
+  gem 'spring'
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'capistrano', '~> 3.0.1'
@@ -38,6 +37,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.0.2'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
