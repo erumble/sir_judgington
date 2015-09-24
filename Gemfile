@@ -9,7 +9,6 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise'
-gem 'dotenv-rails', '~> 2.0.2'
 gem 'mysql2'
 gem 'pundit'
 gem 'simple_form', '~> 3.1.0'
@@ -38,6 +37,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.0.2'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
