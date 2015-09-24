@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise'
-gem 'mysql2'
+gem 'pg'
 gem 'pundit'
 gem 'simple_form', '~> 3.1.0'
 gem 'active_model_serializers'
