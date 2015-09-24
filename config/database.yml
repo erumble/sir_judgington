@@ -20,5 +20,5 @@
   host: <%= ENV['DB_HOSTNAME'] %>
   encoding: utf8
   reconnect: false
-  pool: 5
+  pool: <%= ENV['MAX_THREADS'] || 5 %>
 
