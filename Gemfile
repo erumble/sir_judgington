@@ -56,6 +56,7 @@ group :test do
 end
 
 group :production do
-  gem 'unicorn-rails'
+  gem 'puma'
+  gem 'rack-timeout'
 end
 
