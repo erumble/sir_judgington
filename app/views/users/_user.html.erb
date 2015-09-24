@@ -3,8 +3,11 @@
 </td>
 <td>
   <%= form_for(user) do |f| %>
+    <%= f.label :role, "Role" %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'button-xs' %>
+    <%= f.label :approved, "Approved" %>
+    <%= f.check_box :approved %>
+    <%= f.submit 'Update User', :class => 'button-xs' %>
   <% end %>
 </td>
 <td>
