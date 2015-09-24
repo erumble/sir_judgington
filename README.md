@@ -85,7 +85,17 @@ Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.
 Database
 --------
 
-This application uses MySQL with ActiveRecord.
+This application uses PostgreSQL with ActiveRecord.
+
+To setup PostgreSQL on CentOS, perform the following steps:  
+1. run `sudo yum install -y postgresql-server postgresql-devel postgresql`  
+2. run `sudo service postgresql initdb`
+3. run `sudo vim /var/lib/pgsql/data/pg_hba.conf` and replace the last 2 occurences of the word `ident` with the word `md5`  
+3. run `sudo service postgresql start`  
+4. run `sudo chkconfig postgresql on`  
+5. run `sudo -u postgres psql` to access the postgres command line  
+6. from the postgres command line run `create role sir_judgington with createdb login password '<password>';`  
+7. add the previously created credentials to the .env file (not the .env.example file)
 
 Development
 -----------

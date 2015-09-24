@@ -1,0 +1,24 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+
+# Edit this file to include your own credentials
+# Do NOT check actual credentials into GitHub
+
+<%= Rails.env %>:
+  adapter: <%= ENV['DB_ADAPTER'] %>
+  database: <%= ENV['DB_SCHEMA'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOSTNAME'] %>
+  encoding: utf8
+  reconnect: false
+  pool: 5
+
