@@ -10,9 +10,12 @@ BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXX)
 
 # Required Packages to build this RPM
 BuildRequires: mysql-devel
+BuildRequires: rubygems
+#BuildRequires: rubygems(bundler)
 
 # Packages required to install the RPM
 Requires: glibc
+Requires: rubygems
 
 # What repository to pull the actual code from
 %define git_repo https://github.com/erumble/%{name}.git
