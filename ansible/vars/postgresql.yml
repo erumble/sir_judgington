@@ -1,0 +1,28 @@
+postgresql_admin_user: "postgres"
+postgresql_default_auth_method: "trust"
+
+postgresql_databases:
+  - name: sir_judgington
+    hstore: no
+
+postgresql_users:
+  - name: sir_judgington
+    pass: supersecurepassword
+    encrypted: no
+
+postgresql_user_privileges:
+  - name: sir_judgington
+    db: sir_judgington
+    priv: "ALL"
+
+postgresql_user_object_privileges:
+  - name: sir_judgington   # user name
+    db: sir_judgington     # database
+    type: table            # type of db object on which to set privilege
+    priv: ALL              # list of privileges (e.g. INSERT,SELECT)
+    objs: 'ALL_IN_SCHEMA'  # list of db objects on which to set privilege
+  - name: sir_judgington   # user name
+    db: sir_judgington     # database
+    type: sequence         # type of db object on which to set privilege
+    priv: ALL              # list of privileges (e.g. INSERT,SELECT)
+    objs: 'ALL_IN_SCHEMA'  # list of db objects on which to set privilege

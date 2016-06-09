@@ -1,0 +1,13 @@
+# galaxy_roles.yml
+# use the command `ansible-galaxy install -r galaxy_roles.yml [-p <path/to/roles/>]` to install these roles :D
+
+# roles from ansible galaxy https://galaxy.ansible.com
+- src: geerlingguy.repo-epel
+
+# roles from github
+- src: https://github.com/erumble/ansible-role-passenger
+  name: erumble.passenger
+- src: https://github.com/erumble/ansible-role-ruby
+  name: erumble.ruby
+- src: https://github.com/erumble/ansible-role-postgresql
+  name: erumble.postgresql

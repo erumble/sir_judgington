@@ -82,3 +82,8 @@ public/assets/*
 
 # Ignore application configuration
 /config/application.yml
+
+# Ignore some provisioning stuffs
+/ansible/roles
+/.vagrant
+/ansible/*.retry
