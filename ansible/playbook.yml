@@ -1,0 +1,31 @@
+---
+- name: Provision Sir Judgington
+  hosts: all
+  become: yes
+
+  vars_files:
+    - vars/ruby.yml
+    - vars/postgresql.yml
+    - vars/passenger.yml
+
+  roles:
+    - geerlingguy.repo-epel
+    - erumble.passenger
+    - erumble.ruby
+    - erumble.postgresql
+
+  tasks:
+    - name: run some bundle config crap
+      become: no
+      command: '{{ item }}'
+      args:
+        chdir: /vagrant
+      with_items:
+        - '/usr/local/bin/bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config'
+        - '/usr/local/bin/bundle install'
+        - '/usr/local/bin/bundle exec rake db:migrate'
+
+# Provisioning notes
+# postgres93 installs to an alternatives directory, bundler can't find the pg_config file
+# to fix this, run the following command before running the bundle install command
+# `bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config`

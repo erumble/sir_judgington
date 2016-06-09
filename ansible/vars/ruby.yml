@@ -1,0 +1,14 @@
+---
+ruby_install_from_source: true
+ruby_download_url: 'https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.2.tar.gz'
+ruby_version: 2.1.2
+ruby_additional_dependencies:
+  - gcc-c++
+  - patch
+  - bzip2
+  - libtool
+  - bison
+  - make
+  - readline-devel
+  - libyaml-devel
+  - libffi-devel

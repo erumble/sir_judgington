@@ -1,0 +1,8 @@
+---
+passenger_server_name: sir-judgington.lvh.me
+passenger_app_root: /vagrant/public
+passenger_app_env: development
+#passenger_ruby: /usr/local/bin/ruby
+
+nginx_user: vagrant
+nginx_group: vagrant
