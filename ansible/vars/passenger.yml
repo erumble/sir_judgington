@@ -1,5 +1,5 @@
 ---
-passenger_server_name: sir-judgington.lvh.me
+passenger_server_name: sir-judgington.dev
 passenger_app_root: /vagrant/public
 passenger_app_env: development
 #passenger_ruby: /usr/local/bin/ruby

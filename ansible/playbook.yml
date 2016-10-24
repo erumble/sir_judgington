@@ -23,7 +23,7 @@
       with_items:
         - '/usr/local/bin/bundle config build.pg --with-pg-config=/usr/pgsql-9.3/bin/pg_config'
         - '/usr/local/bin/bundle install'
-        - '/usr/local/bin/bundle exec rake db:migrate'
+        - '/usr/local/bin/bundle exec rake db:setup'
 
 # Provisioning notes
 # postgres93 installs to an alternatives directory, bundler can't find the pg_config file
