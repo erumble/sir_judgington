@@ -6,8 +6,8 @@ vagrantfile_api_version = "2"
 
 # definitions for the machines provisioned by this vagrant file
 box_params = {
-  box: 'erumble/centos71-x64',
-  hostname: 'sir-judgington.lvh.me',
+  box: 'erumble/centos7-x64',
+  hostname: 'sir-judgington.dev',
   ip: '192.168.5.31',
   playbook: 'ansible/playbook.yml'
 }
