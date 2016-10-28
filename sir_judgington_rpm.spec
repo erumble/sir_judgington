@@ -13,16 +13,18 @@ Source:         %{_source}.tar.gz
 BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXX)
 
 # Required Packages to build this RPM
-BuildRequires: mysql-devel
-BuildRequires: ruby >= 2.1
-BuildRequires: rubygems
+BuildRequires: postgresql-devel
+BuildRequires: gcc
+BuildRequires: gcc-c++
+BuildRequires: ruby = 2.1.10
 BuildRequires: rubygems-devel
 
 # Packages required to install the RPM
 Requires: glibc
+Requires: ruby = 2.1.10
 
 # DIRS - Trying to follow Linux file system hierarchy
-%define appdir /home/rails/%{name}
+%define appdir /var/www/%{name}
 %define logdir /var/log/railsapps/%{name}
 %define cachedir /var/cache/railsapps/%{name}
 
