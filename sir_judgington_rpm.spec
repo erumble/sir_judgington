@@ -18,6 +18,7 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ruby = 2.1.10
 BuildRequires: rubygems-devel
+BuildRequires: zlib-devel
 
 # Packages required to install the RPM
 Requires: glibc
