@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.1.10'
 gem 'rails', '4.1.1'
 gem 'therubyracer', '~> 0.12.2'
 gem 'sass-rails', '~> 4.0.3'
