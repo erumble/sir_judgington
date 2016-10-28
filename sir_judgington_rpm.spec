@@ -66,24 +66,21 @@ done
 
 %install
 # Create all the defined directories
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/%{appdir}
 mkdir -p %{buildroot}/%{logdir}
 mkdir -p %{buildroot}/%{cachedir}
 
 # Start moving files into the proper place in the build root
-pushd %{name}
-  # tmp/cache
-  mv ./tmp %{buildroot}/%{cachedir}
-  ln -s %{cachedir}/tmp ./tmp
+# tmp/cache
+mv ./tmp %{buildroot}/%{cachedir}
+ln -s %{cachedir}/tmp ./tmp
 
-  # log
-  rm -rf ./log
-  ln -s %{logdir} ./log
+# log
+rm -rf ./log
+ln -s %{logdir} ./log
 
-  # Everything left goes in appdir
-  mv ./* %{buildroot}/%{appdir}
-popd
+# Everything left goes in appdir
+mv ./* %{buildroot}/%{appdir}
 
 pushd %{buildroot}/%{appdir}
   # run the bundle install --deployment to register the gems in .vendor/bundle
