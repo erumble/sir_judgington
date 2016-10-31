@@ -89,7 +89,8 @@ pushd %{buildroot}/%{appdir}
   export GEM_HOME=$GEM_PATH
 
   # run the bundle install --deployment to register the gems in .vendor/bundle
-  bundle install --deployment --clean --no-cache
+  bundle install --deployment --clean --no-cache --retry=3 --jobs=3 \
+                 --without development test
 popd
 
 %clean
