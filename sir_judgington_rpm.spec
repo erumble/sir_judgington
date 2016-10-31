@@ -37,9 +37,8 @@ Some description of the application
 
 %build
 # Install bundler, so we can use it to bundle install the things
-curl -lO %{bundler_url}
+curl -LO %{bundler_url}
 %gem_install -n %{bundler}.gem
-rm -f %{bundler}.gem
 
 export PATH=$PATH:./usr/bin
 export GEM_PATH=./usr/lib/ruby/gems/1.8/
@@ -98,6 +97,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(640,apache,apache,750)
+%exclude %{appdir}/%{bundler}.gem
 %{appdir}
 %{logdir}
 %{cachedir}
