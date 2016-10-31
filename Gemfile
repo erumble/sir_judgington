@@ -17,6 +17,7 @@ gem 'active_model_serializers'
 gem 'font-awesome-rails'
 gem 'haml'
 gem 'cocoon'
+gem 'dotenv-rails', '~> 2.0.2'
 
 group :development do
   gem 'spring'
@@ -38,7 +39,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.0.2'
   gem 'factory_girl_rails'
   gem 'pry-byebug'
   gem 'pry-rails'
