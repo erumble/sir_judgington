@@ -39,13 +39,15 @@ Some description of the application
 # Install bundler, so we can use it to bundle install the things
 curl -lO %{bundler_url}
 %gem_install -n %{bundler}.gem
+rm -f %{bundler}.gem
 
 export PATH=$PATH:./usr/bin
 export GEM_PATH=./usr/lib/ruby/gems/1.8/
 export GEM_HOME=$GEM_PATH
 
 # Install all required gems into ./vendor/bundle using the handy bundle commmand
-bundle install --deployment
+bundle install --deployment --clean --no-cache --retry=3 --jobs=3 \
+               --without development test
 
 # Compile assets, this only has to be done once AFAIK, so in the RPM is fine
 rm -rf ./public/assets/*
@@ -83,16 +85,19 @@ ln -s %{logdir} ./log
 mv ./* %{buildroot}/%{appdir}
 
 pushd %{buildroot}/%{appdir}
+  export PATH=$PATH:./usr/bin
+  export GEM_PATH=./usr/lib/ruby/gems/1.8/
+  export GEM_HOME=$GEM_PATH
+
   # run the bundle install --deployment to register the gems in .vendor/bundle
-  bundle install --deployment
+  bundle install --deployment --clean --no-cache
 popd
 
 %clean
 rm -rf %{buildroot}
 
 %files
-%defattr(770,apache,apache)
+%defattr(640,apache,apache,750)
 %{appdir}
 %{logdir}
 %{cachedir}
-
