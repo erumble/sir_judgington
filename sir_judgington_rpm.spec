@@ -24,6 +24,8 @@ BuildRequires: zlib-devel
 Requires: glibc
 Requires: ruby = 2.1.10
 
+Provides: sir_judgington
+
 # DIRS - Trying to follow Linux file system hierarchy
 %define appdir /var/www/%{name}
 %define logdir /var/log/railsapps/%{name}
