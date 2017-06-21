@@ -9,7 +9,8 @@ box_params = {
   box: 'erumble/centos7-x64',
   hostname: 'sir-judgington.dev',
   ip: '192.168.5.31',
-  playbook: 'ansible/playbook.yml'
+  playbook: 'ansible/playbook.yml',
+  galaxy_role_file: 'ansible/dependencies.yml'
 }
 
 # make the vagrant machine(s)
@@ -21,12 +22,10 @@ Vagrant.configure(vagrantfile_api_version) do |config|
     box.vm.hostname = box_params.fetch :hostname
     box.vm.network :private_network, ip: box_params.fetch(:ip)
 
-    # explicitly set hostname, because reasons
-    box.vm.provision :shell, inline: "hostnamectl set-hostname #{box_params[:hostname]}" if box.vm.box == 'erumble/centos71-x64'
-
     # provision the thing
     box.vm.provision :ansible do |ansible|
       ansible.playbook = box_params.fetch :playbook
+      ansible.galaxy_role_file = box_params[:galaxy_role_file]
     end
 
   end # config.vm.define

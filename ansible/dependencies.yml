@@ -3,11 +3,10 @@
 
 # roles from ansible galaxy https://galaxy.ansible.com
 - src: geerlingguy.repo-epel
+- src: geerlingguy.ruby
 
 # roles from github
 - src: https://github.com/erumble/ansible-role-passenger
   name: erumble.passenger
-- src: https://github.com/erumble/ansible-role-ruby
-  name: erumble.ruby
 - src: https://github.com/erumble/ansible-role-postgresql
   name: erumble.postgresql

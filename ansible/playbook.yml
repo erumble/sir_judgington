@@ -10,8 +10,8 @@
 
   roles:
     - geerlingguy.repo-epel
+    - geerlingguy.ruby
     - erumble.passenger
-    - erumble.ruby
     - erumble.postgresql
 
   tasks:
