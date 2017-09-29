@@ -18,3 +18,4 @@ RUN apk --update --no-cache add --virtual gem-builddeps \
  && apk del gem-builddeps
 
 COPY . .
+RUN rm -rf tmp
